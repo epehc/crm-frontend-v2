@@ -1,18 +1,43 @@
 'use client'
+
 import {Table, TableBody, TableCaption, TableHead, TableHeader, TableRow} from "@/components/ui/table"
-import { useState} from "react";
+import {useEffect, useState} from "react";
 import CandidatoRow from "@/components/ui/candidatos/candidato-row";
 import Pagination from "@/components/ui/global/pagination";
-import {dummyCandidatos} from "@/lib/dummy-data";
+import {Candidato} from "@/lib/definitions";
+import {useSession} from "next-auth/react";
+import {getCandidatos} from "@/services/candidates-service";
 
 export default function CadidatosTable() {
     {
+        const [candidatos, setCandidatos] = useState<Candidato[]>([]);
         const [totalPages, setTotalPages] = useState(1);
         const [currentPage, setCurrentPage] = useState(1);
         const pageSize = 15;
+        const {data: session} = useSession();
+        const token = session?.accessToken as string;
 
-        const candidatos = dummyCandidatos
+        //const candidatos = dummyCandidatos
 
+        useEffect(() => {
+            if(!token) {
+                console.log("Token is not available yet");
+                return;
+            }
+
+            const fetchCandidatos = async () => {
+                try {
+                    const data = await getCandidatos(currentPage, pageSize, token);
+                    setCandidatos(data.data);
+                    setTotalPages(data.totalPages);
+                } catch (error) {
+                    console.error("Failed to fetch candidates", error);
+                }
+            };
+
+            fetchCandidatos().then(() => console.log("Candidatos fetched"));
+
+        }, [currentPage, token])
 
         const handlePageChange = (page: number) => {
             setCurrentPage(page);
