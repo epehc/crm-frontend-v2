@@ -3,15 +3,13 @@
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 const LoginPage = () => {
 
-    const router = useRouter();
-
     const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        router.push('dashboard/candidatos');
+        signIn('google', {callbackUrl: '/dashboard/candidatos'})
     }
 
     return (

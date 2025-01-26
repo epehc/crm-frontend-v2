@@ -2,15 +2,14 @@
 import Link from "next/link";
 import NavLinks from "@/components/ui/dashboard/nav-links";
 import {PowerIcon} from "@heroicons/react/24/outline";
-import {redirect} from "next/navigation";
-//import {signOut} from "next-auth/react";
+import {signOut} from "next-auth/react";
 
 
 export default function SideNav() {
 
     const handleSignOut = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault(); // Prevent the default form submission
-        redirect('/login'); // Use absolute path to navigate to the root-level login page
+        signOut({ callbackUrl: '/login' }); // Sign out and redirect to the login page
     };
 
     return(
