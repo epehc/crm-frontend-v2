@@ -1,24 +1,25 @@
 import {TableCell, TableRow} from "@/components/ui/table";
-import {Cliente} from "@/lib/definitions";
+import {Candidato} from "@/lib/definitions";
 import {useRouter} from "next/navigation";
 
-export default function ClienteRow({cliente}: {cliente: Cliente}) {
+export default function CandidatoRow({candidato}: {candidato: Candidato}) {
     const router = useRouter();
 
     const handleRowClick = () => {
-        router.push(`/dashboard/candidatos/${cliente.client_id}`);
+        router.push(`/dashboard/candidatos/${candidato.candidato_id}`);
     }
 
     return(
         <TableRow onClick={handleRowClick} style={{cursor: "pointer"}}>
-            <TableCell><strong>{cliente.nombre}</strong></TableCell>
-            <TableCell>{cliente.direccion}</TableCell>
-            <TableCell>{cliente.telefono}</TableCell>
-            <TableCell><strong>{cliente.persona_contacto}</strong></TableCell>
-            <TableCell><strong>{cliente.nit}</strong></TableCell>
-            <TableCell><strong>{cliente.saldo_pendiente}</strong></TableCell>
-            <TableCell><strong>{cliente.saldo_vencido}</strong></TableCell>
-
+            <TableCell>{candidato.timestamp}</TableCell>
+            <TableCell><b>{candidato.nombre}</b></TableCell>
+            <TableCell><b>{candidato.puesto_aplicado}</b></TableCell>
+            <TableCell>{candidato.como_se_entero}</TableCell>
+            <TableCell>{candidato.genero}</TableCell>
+            <TableCell><b>{candidato.telefono_whatsapp}</b></TableCell>
+            <TableCell>{candidato.telefono}</TableCell>
+            <TableCell><b>{candidato.correo}</b></TableCell>
+            <TableCell><b>{candidato.aspiracion_salarial}</b></TableCell>
         </TableRow>
     )
 }

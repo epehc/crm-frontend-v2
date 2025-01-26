@@ -4,7 +4,7 @@ import {Table, TableBody, TableCaption, TableHead, TableHeader, TableRow} from "
 import { useState} from "react";
 import Pagination from "@/components/ui/global/pagination";
 import {dummyClientes} from "@/lib/dummy-data";
-import ClienteRow from "@/components/ui/candidatos/candidato-row";
+import ClienteRow from "@/components/ui/clientes/cliente-row";
 
 export default function ClientesTable() {
     {
