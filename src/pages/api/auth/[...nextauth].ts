@@ -12,7 +12,6 @@ export default NextAuth({
     secret: process.env.NEXT_PUBLIC_JWT_SECRET,
     callbacks:{
         async signIn({user, account}) {
-
             try{
                 const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_API_URL!}/auth/users`, {
                     method: 'POST',
@@ -46,7 +45,6 @@ export default NextAuth({
 
         async jwt({token, user, account}) {
             if (user) {
-                console.log('i made it in here')
                 const enrichedToken = {
                     ...token,
                     id: user.id,
@@ -54,13 +52,10 @@ export default NextAuth({
                     roles: user.roles,
                 }
 
-                console.log('enrichedToken:', enrichedToken)
                 token.accessToken = jwt.sign(enrichedToken, process.env.NEXT_PUBLIC_JWT_SECRET!, {
                     expiresIn: '1h'
                 })
-
                 token.id = user.id
-                console.log("Token after jwt signing:", token)
             }
 
             if(token.id){
@@ -87,14 +82,10 @@ export default NextAuth({
         },
 
         async session({session, token}) {
-            console.log('session Callback: ')
-            console.log('session: ', session)
-            console.log('token: ', token)
-
             if(token){
+                session.user.id = token.id
                 session.user.roles = token.roles || []
                 session.accessToken = token.accessToken
-                console.log('Session:', session)
             }
             else{
                 console.error('Token or user undefined')

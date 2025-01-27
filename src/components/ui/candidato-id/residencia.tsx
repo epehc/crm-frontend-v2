@@ -2,7 +2,11 @@ import {Residencia} from "@/lib/definitions";
 import {Label} from "@/components/ui/label";
 import CustomInput from "@/components/ui/global/custom-input";
 
-export default function ResidenciaComponent ({residencia}: {residencia: Residencia}) {
+export default function ResidenciaComponent ({residencia}: {residencia: Residencia | null}) {
+
+    if(!residencia){
+        return <div>Loading...</div>
+    }
 
     return(
         <div>

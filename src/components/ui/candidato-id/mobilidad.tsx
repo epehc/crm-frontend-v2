@@ -2,19 +2,11 @@ import { Mobilidad} from '@/lib/definitions';
 import {Label} from "@/components/ui/label";
 import CustomInput from "@/components/ui/global/custom-input";
 
-export default function MobilidadComponent({ mobilidad }: { mobilidad: Mobilidad }) {
+export default function MobilidadComponent({ mobilidad }: { mobilidad: Mobilidad | null }) {
 
-    /*
-    licencia: string;
-    licencia_tipo: string;
-    licencia_fecha_expiracion: string;
-    tiempo_conduciendo: string;
-    vehiculo: string;
-    vehiculo_tipo: string;
-    vehiculo_modelo: string;
-    viaje_interior: string;
-    viaje_exterior: string;
-     */
+    if(!mobilidad){
+        return <div>Loading...</div>
+    }
     return(
         <div>
             <h2 className="text-3xl font-bold mb-4">Mobilidad</h2>

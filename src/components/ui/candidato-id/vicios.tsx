@@ -2,7 +2,11 @@ import {Vicios} from "@/lib/definitions";
 import {Label} from "@/components/ui/label";
 import CustomInput from "@/components/ui/global/custom-input";
 
-export default function ViciosComponent({vicios}: {vicios: Vicios}) {
+export default function ViciosComponent({vicios}: {vicios: Vicios | null}) {
+
+    if(!vicios){
+        return <div>Loading...</div>
+    }
 
     return(
         <div>

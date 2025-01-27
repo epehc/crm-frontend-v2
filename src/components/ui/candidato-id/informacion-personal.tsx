@@ -2,7 +2,11 @@ import { InformacionPersonal} from '@/lib/definitions';
 import {Label} from "@/components/ui/label";
 import CustomInput from "@/components/ui/global/custom-input";
 
-export default function InformacionPersonalComponent({informacionPersonal}: {informacionPersonal: InformacionPersonal}) {
+export default function InformacionPersonalComponent({informacionPersonal}: {informacionPersonal: InformacionPersonal | null}) {
+
+    if(!informacionPersonal){
+        return <div>Loading...</div>
+    }
 
     return(
         <div>

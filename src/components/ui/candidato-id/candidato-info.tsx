@@ -5,7 +5,12 @@ import {Separator} from "@/components/ui/separator";
 
 
 
-export default function CandidatoInfo({ candidato }: { candidato: Candidato }) {
+export default function CandidatoInfo({ candidato }: { candidato: Candidato | null }) {
+
+    if(!candidato){
+        return <div>Loading...</div>
+    }
+
     return (
         <div className="flex flex-col space-y-4">
             <div className="w-4/5 flex flex-col space-y-4">

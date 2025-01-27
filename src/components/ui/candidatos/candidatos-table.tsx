@@ -13,11 +13,9 @@ export default function CadidatosTable() {
         const [candidatos, setCandidatos] = useState<Candidato[]>([]);
         const [totalPages, setTotalPages] = useState(1);
         const [currentPage, setCurrentPage] = useState(1);
-        const pageSize = 15;
+        const pageSize = 12;
         const {data: session} = useSession();
         const token = session?.accessToken as string;
-
-        //const candidatos = dummyCandidatos
 
         useEffect(() => {
             if(!token) {

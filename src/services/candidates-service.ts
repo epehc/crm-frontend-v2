@@ -13,9 +13,18 @@ export const getCandidatos = async (page: number, pageSize: number, token: strin
     return response.json();
 }
 
-export const getCandidato = async (candidato_id:string) => {
-    const response = await api.get(`/candidatos/${candidato_id}`);
-    return response.data;
+export const getCandidato = async (candidato_id:string, token: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/candidatos/${candidato_id}` ,{
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
+    if (!response.ok) {
+        console.error(response)
+        throw new Error(`Failed to fetch candidato: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const getCandidatoByEmail = async (email:string) => {
@@ -46,9 +55,17 @@ export const getContactos = async () => {
     return response.data;
 }
 
-export const getContactosByCandidatoId = async (candidato_id:string) => {
-    const response = await api.get(`/contactos/${candidato_id}`);
-    return response.data;
+export const getContactosByCandidatoId = async (candidato_id:string, token: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/contactos/candidato/${candidato_id}` ,{
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to fetch candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const createContacto = async (data:any) => {
@@ -74,9 +91,17 @@ export const getEstudios = async () => {
     return response.data;
 }
 
-export const getEstudiosByCandidatoId = async (candidato_id:string) => {
-    const response = await api.get(`/estudios/${candidato_id}`);
-    return response.data;
+export const getEstudiosByCandidatoId = async (candidato_id:string, token: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/estudios/candidato/${candidato_id}` ,{
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to fetch candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const createEstudio = async (data:any) => {
@@ -106,9 +131,17 @@ export const getExperienciaLaboral = async (id:string) => {
     return response.data;
 }
 
-export const getExperienciasLaboralesByCandidatoId = async (candidato_id:string) => {
-    const response = await api.get(`/experiencias-laborales/candidato/${candidato_id}`);
-    return response.data;
+export const getExperienciasLaboralesByCandidatoId = async (candidato_id:string, token: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/experiencias-laborales/candidato/${candidato_id}` ,{
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to fetch candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const createExperienciaLaboral = async (data:any) => {
@@ -133,9 +166,17 @@ export const getAllInformacionesPersonales = async () => {
     return response.data;
 }
 
-export const getInformacionPersonalByCandidatoId = async (candidato_id:string) => {
-    const response = await api.get(`/informaciones-personales/${candidato_id}`);
-    return response.data;
+export const getInformacionPersonalByCandidatoId = async (candidato_id: string, token: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/informaciones-personales/${candidato_id}` ,{
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to fetch candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const createInformacionPersonal = async (data:any) => {
@@ -160,9 +201,17 @@ export const getAllMobilidades = async () => {
     return response.data;
 }
 
-export const getMobilidadByCandidatoId = async (candidato_id:string) => {
-    const response = await api.get(`/mobilidades/${candidato_id}`);
-    return response.data;
+export const getMobilidadByCandidatoId = async (candidato_id:string, token: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/mobilidades/${candidato_id}` ,{
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to fetch candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const createMobilidad = async (data:any) => {
@@ -187,9 +236,17 @@ export const getAllResidencias = async () => {
     return response.data;
 }
 
-export const getResidenciaByCandidatoId = async (candidato_id:string) => {
-    const response = await api.get(`/residencias/${candidato_id}`);
-    return response.data;
+export const getResidenciaByCandidatoId = async (candidato_id:string, token: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/residencias/${candidato_id}` ,{
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to fetch candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const createResidencia = async (data:any) => {
@@ -214,9 +271,17 @@ export const getAllVicios = async () => {
     return response.data;
 }
 
-export const getViciosByCandidatoId = async (candidato_id:string) => {
-    const response = await api.get(`/vicios/${candidato_id}`);
-    return response.data;
+export const getViciosByCandidatoId = async (candidato_id:string, token: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/vicios/${candidato_id}` ,{
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to fetch candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const createVicios = async (data:any) => {

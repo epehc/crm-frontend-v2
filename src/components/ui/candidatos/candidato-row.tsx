@@ -19,7 +19,7 @@ export default function CandidatoRow({candidato}: {candidato: Candidato}) {
             <TableCell><b>{candidato.telefono_whatsapp}</b></TableCell>
             <TableCell>{candidato.telefono}</TableCell>
             <TableCell><b>{candidato.correo}</b></TableCell>
-            <TableCell><b>{candidato.aspiracion_salarial}</b></TableCell>
+            <TableCell><b>Q.{candidato.aspiracion_salarial}</b></TableCell>
         </TableRow>
     )
 }
