@@ -9,7 +9,7 @@ const LoginPage = () => {
 
     const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        signIn('google', {callbackUrl: '/dashboard/candidatos'})
+        signIn('google', {callbackUrl: '/dashboard/candidatos?page=1'})
     }
 
     return (
