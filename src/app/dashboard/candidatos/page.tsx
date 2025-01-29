@@ -13,6 +13,7 @@ export default function CandidatesPage() {
     const token = session?.accessToken as string;
     const searchParams = useSearchParams();
     const router = useRouter();
+
     const [candidatos, setCandidatos] = useState<Candidato[]>([]);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);

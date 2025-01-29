@@ -100,12 +100,12 @@ export type Vicios = {
 }
 
 export type Evento = {
-    eventId: string;
-    title: string;
-    start: string;
-    end: string;
-    candidato_nombre: string;
-    candidato_email: string;
+    summary: string;
+    description: string;
+    startTime: string;
+    endTime: string;
+    organizer: string;
+    attendee: string;
 }
 
 
