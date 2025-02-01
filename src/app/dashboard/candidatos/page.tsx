@@ -7,6 +7,9 @@ import CandidatosTable from "@/components/ui/candidatos/candidatos-table";
 import Pagination from "@/components/ui/global/pagination";
 import { getCandidatos } from "@/services/candidates-service";
 import { Candidato } from "@/lib/definitions";
+import {PlusIcon} from "@heroicons/react/24/outline";
+import {Button} from "@/components/ui/button";
+import {Separator} from "@/components/ui/separator";
 
 export default function CandidatesPage() {
     const { data: session } = useSession();
@@ -49,14 +52,14 @@ export default function CandidatesPage() {
     };
 
     return (
-        <div>
-            <h1 className="text-2xl font-bold mb-4">Candidatos</h1>
+        <>
+            <h1 className="text-4xl font-bold mb-4">Candidatos</h1>
             <CandidatosTable candidatos={candidatos} />
             <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={handlePageChange}
             />
-        </div>
+        </>
     );
 }

@@ -36,7 +36,7 @@ export default function AgendarEntrevistaDialog({candidato}: {candidato: Candida
 
 
     useEffect(() => {
-        console.log("AgendarEntrevistaDialog rendered");
+        console.log("AgendarEventoDialog rendered");
     }, []);
 
     const handleChangeDateTime = (e: React.ChangeEvent<HTMLInputElement>)=> {
