@@ -1,5 +1,5 @@
 
-
+//Candidatos
 export type Candidato = {
     candidato_id: string;
     nombre: string;
@@ -99,6 +99,9 @@ export type Vicios = {
     tatuajes: string;
 }
 
+//---------------------------------------------------------
+// Calendario
+
 export type Evento = {
     summary: string;
     description: string;
@@ -109,23 +112,39 @@ export type Evento = {
 }
 
 
-export type Cliente = {
-    client_id: string;
+//---------------------------------------------------------
+// Clientes
+
+export interface NuevoCliente  {
     nombre: string;
     direccion: string;
     telefono: string;
-    persona_contacto: string;
-    telefono_persona_contacto: string;
-    email_persona_contacto: string;
     nit: string;
+}
+
+export interface Cliente extends NuevoCliente {
+    client_id: string;
     plazas: string[];
     saldo_pendiente: number;
     credito_por_dias: number;
     saldo_vencido: number;
 }
 
-export type Factura = {
-    factura_id: string;
+export interface NuevaPersonaContacto {
+    client_id: string;
+    nombre: string;
+    telefono: string;
+    correo: string;
+}
+
+export interface PersonaContacto extends NuevaPersonaContacto {
+    persona_contacto_id: string;
+}
+
+//---------------------------------------------------------
+// Facturas
+
+export interface NuevaFactura {
     fecha: string;
     cliente_id: string;
     nit: string;
@@ -138,11 +157,19 @@ export type Factura = {
     iva: number;
 }
 
-export type Pago = {
-    pago_id: string;
+export interface Factura extends NuevaFactura {
+    factura_id: string;
+}
+
+export interface NuevoPago {
     factura_id: string;
     fecha: string;
     monto: number;
     monto_retenido: number;
     boleta_pago: string;
+}
+
+export interface Pago extends NuevoPago {
+    pago_id: string;
+    
 }
