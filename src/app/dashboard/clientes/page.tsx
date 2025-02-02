@@ -1,33 +1,24 @@
 "use client";
 
 import ClientesTable from "@/components/ui/clientes/clientes-table";
-import {useSession} from "next-auth/react";
-import {useRouter, useSearchParams} from "next/navigation";
 import {Cliente} from "@/lib/definitions";
 import {useEffect, useState} from "react";
 import {getClientes} from "@/services/clients-service";
 import Pagination from "@/components/ui/global/pagination";
-import {Button} from "@/components/ui/button";
-import {PlusIcon} from "@heroicons/react/24/outline";
-import {Separator} from "@/components/ui/separator";
-import {dummyClientes} from "@/lib/dummy-data";
 import AddClientDialog from "@/components/ui/clientes/add-client-dialog";
+import usePageData from "@/app/hooks/usePageData";
 
 export default function ClientsPage() {
-    const {data: session} = useSession();
-    const token = session?.accessToken as string;
-    const searchParams = useSearchParams();
-    const router = useRouter();
-
+    const {
+        token,
+        currentPage,
+        totalPages,
+        setTotalPages,
+        pageSize,
+        handlePageChange,
+    } = usePageData('/dashboard/clientes');
+    
     const [clientes, setClientes] = useState<Cliente[]>([]);
-    const [totalPages, setTotalPages] = useState(1);
-    const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 12;
-
-    useEffect(() => {
-        const page = parseInt(searchParams?.get("page") as string) || 1;
-        setCurrentPage(page);
-    }, [searchParams]);
 
     useEffect(() => {
         if (!token) {
@@ -48,14 +39,10 @@ export default function ClientsPage() {
         fetchClientes();
     }, [currentPage, token]);
 
+    
     const addCliente = (nuevoCliente: Cliente) => {
         setClientes((prevClientes) => [...prevClientes, nuevoCliente]);
     };
-
-    const handlePageChange = (page: number) => {
-        setCurrentPage(page);
-        router.push(`/dashboard/clientes?page=${page}`);
-    }
 
     return (
         <>

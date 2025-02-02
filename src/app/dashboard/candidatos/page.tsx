@@ -1,31 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import CandidatosTable from "@/components/ui/candidatos/candidatos-table";
 import Pagination from "@/components/ui/global/pagination";
 import { getCandidatos } from "@/services/candidates-service";
 import { Candidato } from "@/lib/definitions";
-import {PlusIcon} from "@heroicons/react/24/outline";
-import {Button} from "@/components/ui/button";
-import {Separator} from "@/components/ui/separator";
+import usePageData from "@/app/hooks/usePageData";
 
 export default function CandidatesPage() {
-    const { data: session } = useSession();
-    const token = session?.accessToken as string;
-    const searchParams = useSearchParams();
-    const router = useRouter();
-
+    const {
+        token,
+        currentPage,
+        totalPages,
+        setTotalPages,
+        pageSize,
+        handlePageChange,
+    } = usePageData('/dashboard/candidatos');
+    
     const [candidatos, setCandidatos] = useState<Candidato[]>([]);
-    const [totalPages, setTotalPages] = useState(1);
-    const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 12;
-
-    useEffect(() => {
-        const page = parseInt(searchParams?.get("page") as string) || 1;
-        setCurrentPage(page);
-    }, [searchParams]);
 
     useEffect(() => {
         if (!token) {
@@ -45,11 +37,6 @@ export default function CandidatesPage() {
 
         fetchCandidatos();
     }, [currentPage, token]);
-
-    const handlePageChange = (page: number) => {
-        setCurrentPage(page);
-        router.push(`/dashboard/candidatos?page=${page}`, undefined, { shallow: true });
-    };
 
     return (
         <>
