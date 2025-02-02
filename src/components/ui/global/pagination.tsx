@@ -44,9 +44,9 @@ export default function Pagination({currentPage, totalPages, onPageChange,}: Pag
             <button
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="px-4 py-2 bg-gray-200 rounded-l hover:bg-gray-300 disabled:opacity-50"
+                className="px-4 py-2 bg-black rounded-l hover:bg-gray-400 disabled:opacity-50"
             >
-                <ArrowLeftIcon className="w-6"/>
+                <ArrowLeftIcon className="w-6 text-white"/>
             </button>
             {pageNumbers.map((page, index) => (
                 <button
@@ -55,9 +55,9 @@ export default function Pagination({currentPage, totalPages, onPageChange,}: Pag
                     disabled={page === currentPage || page === "..."}
                     className={`px-4 py-2 ${
                         currentPage === page
-                            ? "bg-blue-500 text-white"
-                            : "bg-gray-200"
-                    } hover:bg-gray-300 disabled:opacity-50`}
+                            ? "bg-black text-white"
+                            : "bg-gray-50 text-black"
+                    } hover:bg-gray-300 hover:text-black `}
                 >
                     {page}
                 </button>
@@ -65,9 +65,9 @@ export default function Pagination({currentPage, totalPages, onPageChange,}: Pag
             <button
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="px-4 py-2 bg-gray-200 rounded-r hover:bg-gray-300 disabled:opacity-50"
+                className="px-4 py-2 bg-black rounded-r hover:bg-gray-400 disabled:opacity-50"
             >
-                <ArrowRightIcon className="w-6"/>
+                <ArrowRightIcon className="w-6 text-white"/>
             </button>
         </div>
     );

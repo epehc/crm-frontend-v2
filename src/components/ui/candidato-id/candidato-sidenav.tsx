@@ -44,13 +44,13 @@ export default function CandidatoSidenav({setActiveSection}: {setActiveSection: 
                     <p className="hidden md:block">{link.name}</p>
                 </div>
             ))}
-            <div className='grid grid-cols-1 gap-4 mt-8'>
+            {/*<div className='grid grid-cols-1 gap-4 mt-8'>
                 <AgendarEntrevistaDialog/>
                 <Button>
                     <DocumentPlusIcon/>
                     Generar informe
                 </Button>
-            </div>
+            </div>*/}
         </div>
     )
 }

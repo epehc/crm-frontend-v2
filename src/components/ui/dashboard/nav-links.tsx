@@ -3,7 +3,7 @@
 import {
     CalendarIcon,
     DocumentDuplicateIcon,
-    HomeIcon,
+    //HomeIcon,
     ListBulletIcon,
     UserGroupIcon
 } from "@heroicons/react/24/outline";
@@ -15,7 +15,8 @@ import clsx from 'clsx';
 export default function NavLinks(/*{ roles }: { roles: string[] }*/) {
     const pathname = usePathname();
 
-    //const { data: session } = useSession();
+    /*const { data: session } = useSession();
+    const roles = session?.user?.roles as string[];*/
 
     const links = [
         //{ name: 'Home', href: '/dashboard', icon: HomeIcon, roles:[] },
@@ -38,9 +39,9 @@ export default function NavLinks(/*{ roles }: { roles: string[] }*/) {
                         key={link.name}
                         href={link.href}
                         className={clsx(
-                            'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3',
+                            'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-300 md:flex-none md:justify-start md:p-2 md:px-3',
                             {
-                                'bg-sky-100 text-blue-600': pathname === link.href,
+                                'bg-gray-300': pathname?.includes(link.href),
                             },
                         )}>
                         <LinkIcon className="w-6" />
