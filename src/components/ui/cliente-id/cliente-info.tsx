@@ -22,12 +22,12 @@ export default function ClienteInfo({ cliente, personasContacto }: { cliente: Cl
                         <p><strong>NIT:</strong> {cliente.nit}</p>
                     </div>
                     <div>
-                        <p><strong>Saldo pendiente:</strong> {cliente.saldo_pendiente}</p>
-                        <p><strong>Credito por dias:</strong> {cliente.credito_por_dias}</p>
-                        <p><strong>Saldo vencido:</strong> {cliente.saldo_vencido}</p>
+                        <p><strong>Saldo pendiente: </strong>Q.{cliente.saldo_pendiente}</p>
+                        <p><strong>Credito por dias: </strong> {cliente.credito_por_dias}</p>
+                        <p><strong>Saldo vencido: </strong>Q.{cliente.saldo_vencido}</p>
                     </div>
                     <div className='grid grid-cols-1 gap-4 w-[240px]'>
-                        <AgendarEventoDialog cliente={cliente} personasContacto={personasContacto}/>
+                        <AgendarEventoDialog cliente={cliente} personasContacto={personasContacto} shortVersion={false}/>
                     </div>
                 </div>
             </div>
