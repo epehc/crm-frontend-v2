@@ -7,6 +7,7 @@ import {getClientes} from "@/services/clients-service";
 import Pagination from "@/components/ui/global/pagination";
 import AddClientDialog from "@/components/ui/clientes/add-client-dialog";
 import usePageData from "@/app/hooks/usePageData";
+import {updateFacturasAndClientsSaldo } from "@/lib/utils";
 
 export default function ClientsPage() {
     const {
@@ -28,6 +29,8 @@ export default function ClientsPage() {
 
         const fetchClientes = async () => {
             try {
+                //Helper function to ensure the saldo pendiente is up to date
+                //await updateFacturasAndClientsSaldo(token);
                 const data = await getClientes(currentPage, pageSize, token);
                 setClientes(data.data);
                 setTotalPages(data.totalPages);
