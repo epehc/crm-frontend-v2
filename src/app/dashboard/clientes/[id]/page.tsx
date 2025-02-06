@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getPersonasContactoByClienteId } from "@/services/clients-service";
+import ClienteFacturasTable from "@/components/ui/cliente-id/cliente-facturas-table";
 
 
 
@@ -22,6 +23,8 @@ export default function ClientePage() {
     const [personasContacto, setPersonasContacto] = useState<PersonaContacto[]>([])
 
     const [activeSelection, setActiveSelection] = useState('personas-de-contacto');
+
+    const [refresh, setRefresh] = useState<number>(0);
 
     useEffect(() => {
         if(!client_id || !token){
@@ -40,7 +43,7 @@ export default function ClientePage() {
 
         fetchCliente()
         
-    }, [client_id, token]);
+    }, [client_id, token, refresh]);
 
     useEffect(() => {
         if(!cliente || !token){
@@ -61,21 +64,22 @@ export default function ClientePage() {
 
     }, [cliente, token]);
 
-    const addPersonaContacto = (nuevaPersonaContacto: PersonaContacto) => {
-        setPersonasContacto((prevPersonasContacto) => [...prevPersonasContacto, nuevaPersonaContacto]);
+    const onChange = () => {
+        console.log("refreshing....")
+        setRefresh(refresh + 1);
     }
 
     const renderContent = () => {
         switch(activeSelection){
             case 'facturas':
-                return <div>Facturas</div>
+                return <ClienteFacturasTable cliente={cliente} onChange={onChange} refresh={refresh}/>
             case 'personas-de-contacto':
-                return <PersonasContactoComponent client_id={client_id} personasContacto={personasContacto} addContacto={addPersonaContacto}/>
+                return <PersonasContactoComponent client_id={client_id} personasContacto={personasContacto} onChange={onChange}/>
             default:
                 return <div>Personas de contacto</div>
         }
+    
     }
-
 
     return (
         <div>
