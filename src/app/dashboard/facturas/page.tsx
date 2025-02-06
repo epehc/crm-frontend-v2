@@ -2,9 +2,11 @@
 
 import usePageData from "@/app/hooks/usePageData";
 import AddFacturaDialog from "@/components/ui/facturas/add-factura-dialog";
+import FacturasTable from "@/components/ui/facturas/facturas-table";
 import Pagination from "@/components/ui/global/pagination";
-import { Factura } from "@/lib/definitions";
-import { getFacturas } from "@/services/invoices-service";
+import { Factura, Pago } from "@/lib/definitions";
+import { updateFacturasAndClientsSaldo} from "@/lib/utils";
+import { getAllPagos, getFacturas } from "@/services/invoices-service";
 import { useEffect, useState } from "react";
 
 export default function FacturasPage() {
@@ -18,6 +20,8 @@ export default function FacturasPage() {
     } = usePageData('/dashboard/facturas');
 
     const [facturas, setFacturas] = useState<Factura[]>([]);
+    const [pagos, setPagos] = useState<Pago[]>([]);
+    const [refresh, setRefresh] = useState<number>(0);
 
     useEffect(() => {
         if (!token) {
@@ -25,31 +29,38 @@ export default function FacturasPage() {
             return;
         }
 
-        const fetchClientes = async () => {
+        const fetchFacturasAndPagos = async () => {
             try {
-                const data = await getFacturas(currentPage, pageSize, token);
-                setFacturas(data.data);
-                setTotalPages(data.totalPages);
+                //Check if the due date of the invoices has passed and update the status
+                //await updateFacturasAndClientsSaldo(token);
+
+                const facturasResponse = await getFacturas(currentPage, pageSize, token);
+                setFacturas(facturasResponse.data);
+                setTotalPages(facturasResponse.totalPages);
+
+                const pagosResponse = await getAllPagos(token);
+                console.log(pagosResponse)
+                setPagos(pagosResponse);
+                console.log("Facturas y pagos fetched successfully");
             } catch (error) {
                 console.error("Failed to fetch clients", error);
             }
         };
 
-        fetchClientes();
-    }, [currentPage, token]);
+        fetchFacturasAndPagos();
+    }, [currentPage, token, refresh]);
 
-    const addFactura = (nuevaFactura: Factura) => {
-            setFacturas((prevFacturas) => [...prevFacturas, nuevaFactura]);
-        };
-
+    const onChange = () => {
+        setRefresh(refresh + 1);
+    }
 
     return (
         <>
             <div className='flex flex-row space-x-3'>
                 <h1 className="text-4xl font-bold mb-4">Facturas</h1>
-                <AddFacturaDialog addFactura={addFactura}/>
+                <AddFacturaDialog addFactura={onChange}/>
             </div>
-            
+            <FacturasTable facturas={facturas} pagos={pagos} onChange={onChange}/>
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
         </>
         );
