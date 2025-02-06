@@ -1,5 +1,18 @@
 import api from './api';
-import {NuevaPersonaContacto, NuevoCliente} from "@/lib/definitions";
+import {Cliente, NuevaPersonaContacto, NuevoCliente} from "@/lib/definitions";
+
+export const getAllClientes = async (token: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CLIENTS_API_URL}/clientes/all`,{
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    })
+    if (!response.ok) {
+        throw new Error(`Failed to fetch clientes: ${response.statusText}`);
+    }
+    return response.json();
+}
 
 export const getClientes = async (page: number, pageSize: number, token: string) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_CLIENTS_API_URL}/clientes?page=${page}&pageSize=${pageSize}`,{
@@ -43,14 +56,24 @@ export const createCliente = async (nuevoCliente: NuevoCliente, token: string) =
         body: JSON.stringify(nuevoCliente),
     })
     if (!response.ok) {
-        throw new Error(`Failed to create event: ${response.statusText}`);
+        throw new Error(`Failed to create cliente: ${response.statusText}`);
     }
     return response.json();
 };
 
-export const updateCliente = async (id: string, cliente: any) => {
-    const response = await api.put(`/clientes/${id}`, cliente);
-    return response.data;
+export const updateCliente = async (cliente: Cliente, token: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CLIENTS_API_URL}/clientes/${cliente.client_id}`, {
+        method: "PUT",
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cliente),
+    })
+    if (!response.ok) {
+        throw new Error(`Failed to update cliente: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const deleteCliente = async (client_id: string, token: string) => {

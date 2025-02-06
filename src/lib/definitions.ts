@@ -120,13 +120,13 @@ export interface NuevoCliente  {
     direccion: string;
     telefono: string;
     nit: string;
+    credito_por_dias: number;
 }
 
 export interface Cliente extends NuevoCliente {
     client_id: string;
     plazas: string[];
     saldo_pendiente: number;
-    credito_por_dias: number;
     saldo_vencido: number;
 }
 
@@ -145,31 +145,40 @@ export interface PersonaContacto extends NuevaPersonaContacto {
 // Facturas
 
 export interface NuevaFactura {
+    client_id: string;
+    cliente_nombre: string;
+    estado: EstadoFactura;
     fecha: string;
-    cliente_id: string;
-    nit: string;
-    total: number;
-    estado: string;
-    productos: any[];
-    saldo_vencido: number;
-    credito_por_dias: number;
     fecha_vencimiento: string;
+    total: number;
     iva: number;
+    total_sin_iva: number;
+    abonado: number;
+    saldo_pendiente: number;
+    nit: string;
+    descripcion: string;
 }
 
 export interface Factura extends NuevaFactura {
-    factura_id: string;
+    factura_id: number;
 }
 
 export interface NuevoPago {
-    factura_id: string;
+    factura_id: number;
     fecha: string;
     monto: number;
-    monto_retenido: number;
     boleta_pago: string;
 }
 
 export interface Pago extends NuevoPago {
     pago_id: string;
     
+}
+
+export enum EstadoFactura {
+    CREADA = 'creada',
+    PAGADA = 'pagada',
+    PARCIAL = 'parcial',
+    VENCIDA = 'vencida',
+    ANULADA = 'anulada'
 }
