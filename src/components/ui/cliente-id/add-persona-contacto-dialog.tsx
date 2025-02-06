@@ -9,17 +9,17 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import {useSession} from "next-auth/react";
-import {useEffect, useState} from "react";
-import {CalendarIcon, PlusIcon} from "@heroicons/react/24/outline";
+import {useState} from "react";
+import {PlusIcon} from "@heroicons/react/24/outline";
 import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
-import {NuevaPersonaContacto, NuevoCliente} from "@/lib/definitions";
-import {createCliente, createPersonaContacto} from "@/services/clients-service";
+import {NuevaPersonaContacto} from "@/lib/definitions";
+import {createPersonaContacto} from "@/services/clients-service";
 
 
-export default function AddPersonaContactoDialog({client_id, addContacto}: {client_id: string, addContacto: (nuevaPersonaContacto: NuevaPersonaContacto) => void}) {
+export default function AddPersonaContactoDialog({client_id, addContacto}: {client_id: string, addContacto: () => void}) {
     const {data: session} = useSession();
     const token = session?.accessToken as string;
     const organizer = session?.user.email as string;
@@ -44,6 +44,12 @@ export default function AddPersonaContactoDialog({client_id, addContacto}: {clie
         setCorreo(e.target.value)
     }
 
+    const resetForm = () => {
+        setNombre("")
+        setTelefono("")
+        setCorreo("")
+    }
+
     const handleSubmit= async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
@@ -65,8 +71,9 @@ export default function AddPersonaContactoDialog({client_id, addContacto}: {clie
             const response = await createPersonaContacto(nuevaPersonaContacto, token)
             alert('Contacto creado exitosamente')
             console.log("Contacto creado: ", response)
-            addContacto(response)
+            addContacto()
             setIsDialogOpen(false)
+            resetForm()
         }catch(error){
             console.log('Failed to create new contact', error)
             alert('Error al crear el contacto nuevo')
