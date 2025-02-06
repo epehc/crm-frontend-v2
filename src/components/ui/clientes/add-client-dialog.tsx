@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import {useSession} from "next-auth/react";
 import {useEffect, useState} from "react";
-import {CalendarIcon, PlusIcon} from "@heroicons/react/24/outline";
+import {PlusIcon} from "@heroicons/react/24/outline";
 import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label";
@@ -29,6 +29,7 @@ export default function AddClientDialog({addCliente}: {addCliente: (nuevoCliente
     const [direccion, setDireccion] = useState<string>("")
     const [telefono, setTelefono] = useState<string>("")
     const [nit, setNit] = useState<string>("")
+    const [creditoPorDias, setCreditoPorDias] = useState<string>('0')
 
     const handleNombreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -50,19 +51,35 @@ export default function AddClientDialog({addCliente}: {addCliente: (nuevoCliente
         setNit(e.target.value)
     }
 
+    const handleCreditoPorDiasChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setCreditoPorDias(e.target.value)
+    }
+
+    const resetForm = () => {
+        setNombre('')
+        setDireccion('')
+        setTelefono('')
+        setNit('')
+        setCreditoPorDias('0')
+    }
+
     const handleSubmit= async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        if(!nombre || !direccion || !telefono || !nit){
+        if(!nombre || !direccion || !telefono || !nit || !creditoPorDias){
             alert("Por favor llene todos los campos")
             return
         }
+
+        const credito_por_dias = parseInt(creditoPorDias)
 
         const nuevoCliente: NuevoCliente = {
             nombre,
             direccion,
             telefono,
-            nit
+            nit,
+            credito_por_dias: credito_por_dias,
         }
 
         console.log("Nuevo cliente: ", nuevoCliente)
@@ -72,6 +89,7 @@ export default function AddClientDialog({addCliente}: {addCliente: (nuevoCliente
             alert('Cliente creado exitosamente')
             console.log("Cliente creado: ", response)
             addCliente(response)
+            resetForm()
             setIsDialogOpen(false)
         }catch(error){
             console.log('Failed to create new client', error)
@@ -132,6 +150,16 @@ export default function AddClientDialog({addCliente}: {addCliente: (nuevoCliente
                                 type='text'
                                 value={nit}
                                 onChange={handleNitChange}
+                                required
+                            />
+                        </div>
+                        <div className='grid grid-cols-4 items-center gap-4'>
+                            <Label className="text-right">Credito por dias:</Label>
+                            <Input
+                                className="w-[240px] justify-start text-left font-normal border rounded p-2"
+                                type='text'
+                                value={creditoPorDias}
+                                onChange={handleCreditoPorDiasChange}
                                 required
                             />
                         </div>
