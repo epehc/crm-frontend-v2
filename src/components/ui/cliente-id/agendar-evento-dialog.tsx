@@ -23,7 +23,7 @@ import {createEvent} from "@/services/calendar-service";
 import { Separator } from "@radix-ui/react-separator";
 
 
-export default function AgendarEventoDialog({cliente, personasContacto}: {cliente: Cliente, personasContacto: PersonaContacto[]}) {
+export default function AgendarEventoDialog({cliente, personasContacto, shortVersion}: {cliente: Cliente, personasContacto: PersonaContacto[], shortVersion: boolean}) {
     const {data: session} = useSession();
     const token = session?.accessToken as string;
     const organizer = session?.user.email as string;
@@ -109,7 +109,7 @@ export default function AgendarEventoDialog({cliente, personasContacto}: {client
             <DialogTrigger asChild>
                 <Button>
                     <CalendarIcon/>
-                    Agendar Cita
+                    {shortVersion ? "" : "Agendar Cita"}
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px]">
@@ -133,7 +133,7 @@ export default function AgendarEventoDialog({cliente, personasContacto}: {client
                                     onValueChange={(value) => handleChangeInvitado(value)}>
                                 <SelectTrigger className={cn(
                                     "w-[240px] justify-between text-left font-normal",
-                                    !duration
+                                    !invitado
                                 )}>
                                     <div className='flex items-center justify-between'>
                                         <UserIcon className='h-5 w-5 ml-1'/>
