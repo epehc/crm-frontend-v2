@@ -1,6 +1,8 @@
 import {TableCell, TableRow} from "@/components/ui/table";
 import {Candidato} from "@/lib/definitions";
 import {useRouter} from "next/navigation";
+import AgendarEntrevistaDialog from "../candidato-id/agendar-entrevista-dialog";
+import { formatDate } from "@/lib/utils";
 
 export default function CandidatoRow({candidato}: {candidato: Candidato}) {
     const router = useRouter();
@@ -8,11 +10,13 @@ export default function CandidatoRow({candidato}: {candidato: Candidato}) {
     const handleRowClick = () => {
         router.push(`/dashboard/candidatos/${candidato.candidato_id}`);
     }
+    const cleanedTimestamp = candidato.timestamp.replace(" EEST", "").replace(" EET", "");
+    const formattedTimestamp = formatDate(new Date(cleanedTimestamp));
 
     return(
-        <TableRow onClick={handleRowClick} style={{cursor: "pointer"}}>
-            <TableCell>{candidato.timestamp}</TableCell>
-            <TableCell><b>{candidato.nombre}</b></TableCell>
+        <TableRow>
+            <TableCell>{formattedTimestamp}</TableCell>
+            <TableCell onClick={handleRowClick} style={{cursor: "pointer"}}><b>{candidato.nombre}</b></TableCell>
             <TableCell><b>{candidato.puesto_aplicado}</b></TableCell>
             <TableCell>{candidato.como_se_entero}</TableCell>
             <TableCell>{candidato.genero}</TableCell>
@@ -20,6 +24,7 @@ export default function CandidatoRow({candidato}: {candidato: Candidato}) {
             <TableCell>{candidato.telefono}</TableCell>
             <TableCell><b>{candidato.correo}</b></TableCell>
             <TableCell><b>Q.{candidato.aspiracion_salarial}</b></TableCell>
+            <TableCell><AgendarEntrevistaDialog candidato={candidato} shortVersion={true}/></TableCell>
         </TableRow>
     )
 }
