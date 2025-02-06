@@ -29,7 +29,7 @@ export default function CandidatoInfo({ candidato }: { candidato: Candidato | nu
                         <p><strong>Correo:</strong> {candidato.correo}</p>
                     </div>
                     <div className='grid grid-cols-1 gap-4 w-[240px]'>
-                        <AgendarEntrevistaDialog candidato={candidato}/>
+                        <AgendarEntrevistaDialog candidato={candidato} shortVersion={false}/>
                         <Button>
                             <DocumentPlusIcon/>
                             Generar informe
