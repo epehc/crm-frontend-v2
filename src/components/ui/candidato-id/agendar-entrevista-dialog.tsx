@@ -22,7 +22,7 @@ import {useSession} from "next-auth/react";
 import {createEvent} from "@/services/calendar-service";
 
 
-export default function AgendarEntrevistaDialog({candidato}: {candidato: Candidato}) {
+export default function AgendarEntrevistaDialog({candidato, shortVersion}: {candidato: Candidato, shortVersion: boolean}) {
     const {data: session} = useSession();
     const token = session?.accessToken as string;
     const organizer = session?.user.email as string;
@@ -95,7 +95,7 @@ export default function AgendarEntrevistaDialog({candidato}: {candidato: Candida
             <DialogTrigger asChild>
                 <Button>
                     <CalendarIcon/>
-                    Agendar Entrevista
+                    {shortVersion ? "" : "Agendar Entrevista"}
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px]">
@@ -109,14 +109,14 @@ export default function AgendarEntrevistaDialog({candidato}: {candidato: Candida
                                 Titulo:
                             </Label>
                             <Textarea className='w-[240px] justify-start text-left font-normal' value={title}
-                                      onChange={handleChangeTitle} placeholder={`Entrevista con ${candidato.nombre}`}/>
+                                    onChange={handleChangeTitle} placeholder={`Entrevista con ${candidato.nombre}`}/>
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
                             <Label className="text-right">
                                 Descripcion:
                             </Label>
                             <Textarea className='w-[240px] justify-start text-left font-normal' value={description}
-                                      onChange={handleChangeDescription} placeholder={`Entrevista para ${candidato.puesto_aplicado}`}/>
+                                    onChange={handleChangeDescription} placeholder={`Entrevista para ${candidato.puesto_aplicado}`}/>
                         </div>
                         <div className="grid grid-cols-4 items-center gap-2">
                             <Label className="text-right">
