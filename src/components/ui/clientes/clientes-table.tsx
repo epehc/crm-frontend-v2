@@ -5,8 +5,6 @@ import ClienteRow from "@/components/ui/clientes/cliente-row";
 import {Cliente} from "@/lib/definitions";
 
 export default function ClientesTable({clientes} : {clientes: Cliente[]}) {
-    
-    console.log(clientes)
 
     return (
         <Table>
@@ -19,6 +17,7 @@ export default function ClientesTable({clientes} : {clientes: Cliente[]}) {
                     <TableHead><b>NIT</b></TableHead>
                     <TableHead><b>Saldo pendiente</b></TableHead>
                     <TableHead><b>Saldo vencido</b></TableHead>
+                    <TableHead><b>Acciones</b></TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
