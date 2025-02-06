@@ -23,6 +23,7 @@
                             <TableHead><b>Teléfono</b></TableHead>
                             <TableHead><b>Correo electrónico</b></TableHead>
                             <TableHead><b>Aspiración Salarial</b></TableHead>
+                            <TableHead><b>Acciones</b></TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
