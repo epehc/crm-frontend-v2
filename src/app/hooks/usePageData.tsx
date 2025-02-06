@@ -10,7 +10,7 @@ const usePageData = (basePath: string) => {
 
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 12;
+    const pageSize = 10;
 
     useEffect(() => {
         const page = parseInt(searchParams?.get("page") as string) || 1;
