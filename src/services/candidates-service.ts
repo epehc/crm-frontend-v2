@@ -1,7 +1,13 @@
 import api from './api';
 
-export const getCandidatos = async (page: number, pageSize: number, token: string) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/candidatos?page=${page}&pageSize=${pageSize}`,{
+export const getCandidatos = async (page: number, pageSize: number, token: string, query?: string) => {
+    const url = new URL(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/candidatos`);
+    url.searchParams.set('page', page.toString());
+    url.searchParams.set('pageSize', pageSize.toString());
+    if (query) {
+        url.searchParams.set('query', query);
+    }
+    const response = await fetch(url.toString(),{
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',

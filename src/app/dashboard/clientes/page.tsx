@@ -8,6 +8,8 @@ import Pagination from "@/components/ui/global/pagination";
 import AddClientDialog from "@/components/ui/clientes/add-client-dialog";
 import usePageData from "@/app/hooks/usePageData";
 import {updateFacturasAndClientsSaldo } from "@/lib/utils";
+import { usePathname, useSearchParams } from "next/navigation";
+import Search from "@/components/ui/global/search";
 
 export default function ClientsPage() {
     const {
@@ -20,6 +22,11 @@ export default function ClientsPage() {
     } = usePageData('/dashboard/clientes');
     
     const [clientes, setClientes] = useState<Cliente[]>([]);
+    const searchParams = useSearchParams();
+    const query = searchParams.get("query") || "";
+    const pathname = usePathname();
+
+    const [refresh, setRefresh] = useState<number>(0);
 
     useEffect(() => {
         if (!token) {
@@ -31,7 +38,7 @@ export default function ClientsPage() {
             try {
                 //Helper function to ensure the saldo pendiente is up to date
                 //await updateFacturasAndClientsSaldo(token);
-                const data = await getClientes(currentPage, pageSize, token);
+                const data = await getClientes(currentPage, pageSize, token, query);
                 setClientes(data.data);
                 setTotalPages(data.totalPages);
             } catch (error) {
@@ -40,11 +47,11 @@ export default function ClientsPage() {
         };
 
         fetchClientes();
-    }, [currentPage, token]);
+    }, [currentPage, token, query, pageSize, setTotalPages, pathname, refresh]);
 
     
     const addCliente = (nuevoCliente: Cliente) => {
-        setClientes((prevClientes) => [...prevClientes, nuevoCliente]);
+        setRefresh(refresh + 1);
     };
 
     return (
@@ -53,6 +60,7 @@ export default function ClientsPage() {
                 <h1 className="text-4xl font-bold mb-4">Clientes</h1>
                 <AddClientDialog addCliente={addCliente}/>
             </div>
+            <Search placeholder="Buscar clientes"/>
             <ClientesTable clientes={clientes}/>
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
         </>

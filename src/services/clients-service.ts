@@ -14,8 +14,14 @@ export const getAllClientes = async (token: string) => {
     return response.json();
 }
 
-export const getClientes = async (page: number, pageSize: number, token: string) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_CLIENTS_API_URL}/clientes?page=${page}&pageSize=${pageSize}`,{
+export const getClientes = async (page: number, pageSize: number, token: string, query?: string) => {
+    const url = new URL(`${process.env.NEXT_PUBLIC_CLIENTS_API_URL}/clientes`);
+    url.searchParams.set('page', page.toString());
+    url.searchParams.set('pageSize', pageSize.toString());
+    if (query) {
+        url.searchParams.set('query', query);
+    }
+    const response = await fetch(url.toString(),{       
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',

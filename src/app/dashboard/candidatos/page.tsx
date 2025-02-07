@@ -6,6 +6,8 @@ import Pagination from "@/components/ui/global/pagination";
 import { getCandidatos } from "@/services/candidates-service";
 import { Candidato } from "@/lib/definitions";
 import usePageData from "@/app/hooks/usePageData";
+import Search from "@/components/ui/global/search";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export default function CandidatesPage() {
     const {
@@ -18,6 +20,9 @@ export default function CandidatesPage() {
     } = usePageData('/dashboard/candidatos');
     
     const [candidatos, setCandidatos] = useState<Candidato[]>([]);
+    const searchParams = useSearchParams();
+    const query = searchParams.get("query") || "";
+    const pathname = usePathname();
 
     useEffect(() => {
         if (!token) {
@@ -27,7 +32,8 @@ export default function CandidatesPage() {
 
         const fetchCandidatos = async () => {
             try {
-                const data = await getCandidatos(currentPage, pageSize, token);
+                console.log("query", query);
+                const data = await getCandidatos(currentPage, pageSize, token, query);
                 setCandidatos(data.data);
                 setTotalPages(data.totalPages);
             } catch (error) {
@@ -36,11 +42,12 @@ export default function CandidatesPage() {
         };
 
         fetchCandidatos();
-    }, [currentPage, token]);
+    }, [currentPage, token, query, pageSize, setTotalPages, pathname]);
 
     return (
         <>
             <h1 className="text-4xl font-bold mb-4">Candidatos</h1>
+            <Search placeholder="Buscar candidatos" />
             <CandidatosTable candidatos={candidatos} />
             <Pagination
                 currentPage={currentPage}
