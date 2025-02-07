@@ -12,6 +12,9 @@ export default function Pagination({currentPage, totalPages, onPageChange,}: Pag
 
     const getPageNumbers = () => {
         const pages = []
+
+        if (totalPages <= 1) return [1];
+
         const ellipsis = "..."
 
         if(totalPages <= maxPageNumbers) {
