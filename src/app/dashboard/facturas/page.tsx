@@ -1,6 +1,6 @@
 'use client';
 
-import usePageData from "@/app/hooks/usePageData";
+import usePageData from "@/hooks/usePageData";
 import AddFacturaDialog from "@/components/ui/facturas/add-factura-dialog";
 import FacturasTable from "@/components/ui/facturas/facturas-table";
 import Pagination from "@/components/ui/global/pagination";

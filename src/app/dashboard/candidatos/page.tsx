@@ -5,7 +5,7 @@ import CandidatosTable from "@/components/ui/candidatos/candidatos-table";
 import Pagination from "@/components/ui/global/pagination";
 import { getCandidatos } from "@/services/candidates-service";
 import { Candidato } from "@/lib/definitions";
-import usePageData from "@/app/hooks/usePageData";
+import usePageData from "@/hooks/usePageData";
 import Search from "@/components/ui/global/search";
 import { usePathname, useSearchParams } from "next/navigation";
 

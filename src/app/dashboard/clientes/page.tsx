@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import {getClientes} from "@/services/clients-service";
 import Pagination from "@/components/ui/global/pagination";
 import AddClientDialog from "@/components/ui/clientes/add-client-dialog";
-import usePageData from "@/app/hooks/usePageData";
+import usePageData from "@/hooks/usePageData";
 import {updateFacturasAndClientsSaldo } from "@/lib/utils";
 import { usePathname, useSearchParams } from "next/navigation";
 import Search from "@/components/ui/global/search";
