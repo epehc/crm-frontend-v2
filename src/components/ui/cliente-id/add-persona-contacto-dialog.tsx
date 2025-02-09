@@ -17,12 +17,16 @@ import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
 import {NuevaPersonaContacto} from "@/lib/definitions";
 import {createPersonaContacto} from "@/services/clients-service";
+import { useToast } from "@/hooks/use-toast";
 
 
 export default function AddPersonaContactoDialog({client_id, addContacto}: {client_id: string, addContacto: () => void}) {
     const {data: session} = useSession();
     const token = session?.accessToken as string;
     const organizer = session?.user.email as string;
+
+    const {toast} = useToast()
+    
 
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [nombre, setNombre] = useState<string>("")
@@ -54,7 +58,10 @@ export default function AddPersonaContactoDialog({client_id, addContacto}: {clie
         e.preventDefault()
 
         if(!nombre || !correo || !telefono){
-            alert("Por favor llene todos los campos")
+            toast({
+                title: "Error",
+                description: "Por favor llene todos los campos",
+            });
             return
         }
 
@@ -69,14 +76,20 @@ export default function AddPersonaContactoDialog({client_id, addContacto}: {clie
 
         try{
             const response = await createPersonaContacto(nuevaPersonaContacto, token)
-            alert('Contacto creado exitosamente')
+            toast({
+                title: "Contacto creado",
+                description: "Contacto creado exitosamente",
+            });
             console.log("Contacto creado: ", response)
             addContacto()
             setIsDialogOpen(false)
             resetForm()
         }catch(error){
             console.log('Failed to create new contact', error)
-            alert('Error al crear el contacto nuevo')
+            toast({
+                title: "Error",
+                description: "Error al crear el contacto",
+            });
         }
 
     }

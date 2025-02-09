@@ -21,12 +21,14 @@ import {cn} from "@/lib/utils";
 import {useSession} from "next-auth/react";
 import {createEvent} from "@/services/calendar-service";
 import { Separator } from "@radix-ui/react-separator";
+import { useToast } from "@/hooks/use-toast";
 
 
 export default function AgendarEventoDialog({cliente, personasContacto, shortVersion}: {cliente: Cliente, personasContacto: PersonaContacto[], shortVersion: boolean}) {
     const {data: session} = useSession();
     const token = session?.accessToken as string;
     const organizer = session?.user.email as string;
+    const {toast} = useToast()
 
     const [dateTime, setDateTime] = useState<string>("");
     const [title, setTitle] = useState<string>(`Evento con ${cliente.nombre}`)
@@ -69,12 +71,18 @@ export default function AgendarEventoDialog({cliente, personasContacto, shortVer
         e.preventDefault()
 
         if(!dateTime || !duration || !organizer ){
-            alert('Faltan campos por llenar')
+            toast({
+                title: "Error",
+                description: "Por favor llene todos los campos",
+            });
             return
         }
 
         if(!invitado){
-            alert('Seleccione un invitado')
+            toast({
+                title: "Error",
+                description: "Seleccione un invitado",
+            });
             return
         }
 
@@ -94,12 +102,18 @@ export default function AgendarEventoDialog({cliente, personasContacto, shortVer
 
         try{
             const response = await createEvent(eventDetails, token);
-            alert('Entrevista agendada exitosamente')
+            toast({
+                title: "Entrevista Agendada",
+                description: "Entrevista agendada exitosamente",
+            });
             console.log("Event created: ", response)
             setIsDialogOpen(false)
         }catch (error){
             console.error("Failed to create event", error)
-            alert('Error al agendar entrevista')
+            toast({
+                title: "Error",
+                description: "Error al agendar entrevista",
+            });
         }
 
     }

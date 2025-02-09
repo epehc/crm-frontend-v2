@@ -17,12 +17,14 @@ import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
 import {NuevoCliente} from "@/lib/definitions";
 import {createCliente} from "@/services/clients-service";
+import { useToast } from "@/hooks/use-toast";
 
 
 export default function AddClientDialog({addCliente}: {addCliente: (nuevoCliente: NuevoCliente) => void}) {
     const {data: session} = useSession();
     const token = session?.accessToken as string;
     const organizer = session?.user.email as string;
+    const {toast} = useToast()
 
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [nombre, setNombre] = useState<string>("")
@@ -68,7 +70,10 @@ export default function AddClientDialog({addCliente}: {addCliente: (nuevoCliente
         e.preventDefault()
 
         if(!nombre || !direccion || !telefono || !nit || !creditoPorDias){
-            alert("Por favor llene todos los campos")
+            toast({
+                title: "Error",
+                description: "Por favor llene todos los campos",
+            });
             return
         }
 
@@ -86,14 +91,20 @@ export default function AddClientDialog({addCliente}: {addCliente: (nuevoCliente
 
         try{
             const response = await createCliente(nuevoCliente, token)
-            alert('Cliente creado exitosamente')
+            toast({
+                title: "Cliente creado",
+                description: "Cliente creado exitosamente",
+            });
             console.log("Cliente creado: ", response)
             addCliente(response)
             resetForm()
             setIsDialogOpen(false)
         }catch(error){
             console.log('Failed to create new client', error)
-            alert('Error al crear el cliente')
+            toast({
+                title: "Error",
+                description: "Error al crear el cliente",
+            });
         }
 
     }

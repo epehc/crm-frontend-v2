@@ -19,10 +19,13 @@ import { createFactura } from "@/services/invoices-service";
 import {updateCliente } from "@/services/clients-service";
 import {formatDate } from "@/lib/utils";
 import {Textarea} from "@/components/ui/textarea";
-import usePageData from "@/app/hooks/usePageData";
+import usePageData from "@/hooks/usePageData";
+import { useToast } from "@/hooks/use-toast";
 
 export default function AddFacturaForClienteDialog({cliente, addFactura}: {cliente: Cliente, addFactura: () => void}) {
     const {token} = usePageData('/dashboard/facturas')
+
+    const {toast} = useToast()
 
     const [isDialogOpen, setIsDialogOpen] = useState(false)
 
@@ -63,7 +66,10 @@ export default function AddFacturaForClienteDialog({cliente, addFactura}: {clien
         e.preventDefault()
 
         if(!cliente || !fecha || !total){
-            alert("Por favor llene todos los campos")
+            toast({
+                title: "Error",
+                description: "Por favor llene todos los campos",
+            });
             return
         }
 
@@ -110,7 +116,10 @@ export default function AddFacturaForClienteDialog({cliente, addFactura}: {clien
 
         try {
             const response = await createFactura(nuevaFactura, token);
-            alert('Factura creada exitosamente');
+            toast({
+                title: "Factura creada",
+                description: "Factura para creada exitosamente",
+            });
             console.log("Factura creada: ", response);
             
             // Update the client in the backend
@@ -122,7 +131,10 @@ export default function AddFacturaForClienteDialog({cliente, addFactura}: {clien
             setIsDialogOpen(false);
         } catch (error) {
             console.error('Error al crear la factura', error);
-            alert('Error al crear la factura');
+            toast({
+                title: 'Error',
+                description: 'Error al crear la factura',
+            });
         }
     }
 

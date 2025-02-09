@@ -12,14 +12,17 @@ import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
 import {XCircleIcon} from "@heroicons/react/24/outline";
 import { anularFactura, updateFactura } from "@/services/invoices-service";
-import usePageData from "@/app/hooks/usePageData";
+import usePageData from "@/hooks/usePageData";
 import { useState } from "react";
 import { getClienteByClienteId, updateCliente } from "@/services/clients-service";
 import { Cliente, EstadoFactura, Factura } from "@/lib/definitions";
+import { useToast } from "@/hooks/use-toast";
 
 export default function AnularFacturaDialog({factura, onAnularFactura}:{factura: Factura, onAnularFactura: () => void}) {
     const {token} = usePageData('/dashboard/facturas')
     const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+    const {toast} = useToast()
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -51,13 +54,19 @@ export default function AnularFacturaDialog({factura, onAnularFactura}:{factura:
             const response = await updateFactura(updatedFactura, token)
             await updateCliente(updatedCliente, token);
             console.log("Cliente updated successfully", updatedCliente);
-            alert('Factura anulada exitosamente');
+            toast({
+                title: "Factura anulada",
+                description: "La factura ha sido anulada exitosamente",
+            });
             console.log("Factura anulada: ", response);
             onAnularFactura();
             setIsDialogOpen(false);
         } catch (error) {
             console.log("Failed to anular factura", error);
-            alert('Error al anular la factura');
+            toast({
+                title: "Error",
+                description: "Error al anular la factura",
+            });
         }
     }
 

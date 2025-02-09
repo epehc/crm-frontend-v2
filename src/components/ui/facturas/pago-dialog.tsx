@@ -1,6 +1,6 @@
 'use client'
 
-import usePageData from "@/app/hooks/usePageData";
+import usePageData from "@/hooks/usePageData";
 import { useEffect, useState } from "react";
 import {
     Dialog,
@@ -19,6 +19,7 @@ import { Cliente, Factura, NuevoPago, EstadoFactura } from "@/lib/definitions";
 import { formatDate } from "@/lib/utils";
 import { getClienteByClienteId, updateCliente } from "@/services/clients-service";
 import { createPago, updateFactura } from "@/services/invoices-service";
+import { useToast } from "@/hooks/use-toast";
 
 
 /*
@@ -28,6 +29,8 @@ import { createPago, updateFactura } from "@/services/invoices-service";
 */
 export default function PagoDialog({factura, client_id, addPago}: {factura:Factura, client_id: string, addPago: () => void}) {
     const {token} = usePageData('/dashboard/facturas')
+
+    const {toast} = useToast()
 
     const [isDialogOpen, setIsDialogOpen] = useState(false)
 
@@ -80,7 +83,10 @@ export default function PagoDialog({factura, client_id, addPago}: {factura:Factu
         e.preventDefault()
 
         if(!monto || !boleta || !fecha || !cliente) {
-            alert('Por favor llene todos los campos')
+            toast({
+                title: "Error",
+                description: "Por favor llene todos los campos",
+            });
             return
         }
 
@@ -132,14 +138,20 @@ export default function PagoDialog({factura, client_id, addPago}: {factura:Factu
             const response = await createPago(nuevoPago, token)
             await updateFactura(updatedFactura, token)
             await updateCliente(updatedCliente, token)
-            alert('Pago procesado exitosamente')
+            toast({
+                title: 'Pago procesado',
+                description: 'Pago procesado exitosamente'
+            })
             console.log('Pago creado: ', response)
             addPago()
             resetForm()
             setIsDialogOpen(false)
         } catch(error) {
             console.error(error)
-            alert('Error al procesar el pago')
+            toast({
+                title: 'Error',
+                description: 'Error al procesar el pago'
+            })
         }       
     }
 

@@ -20,12 +20,15 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/c
 import {cn} from "@/lib/utils";
 import {useSession} from "next-auth/react";
 import {createEvent} from "@/services/calendar-service";
+import { useToast } from "@/hooks/use-toast";
 
 
 export default function AgendarEntrevistaDialog({candidato, shortVersion}: {candidato: Candidato, shortVersion: boolean}) {
     const {data: session} = useSession();
     const token = session?.accessToken as string;
     const organizer = session?.user.email as string;
+
+    const {toast} = useToast();
 
     const [dateTime, setDateTime] = useState<string>("");
     const [title, setTitle] = useState<string>(`Entrevista con ${candidato.nombre}`)
@@ -60,7 +63,10 @@ export default function AgendarEntrevistaDialog({candidato, shortVersion}: {cand
         e.preventDefault()
 
         if(!dateTime || !duration || !organizer ){
-            alert('Faltan campos por llenar')
+            toast({
+                title: "Error",
+                description: "Por favor llena todos los campos",
+            });
             return
         }
 
@@ -80,12 +86,18 @@ export default function AgendarEntrevistaDialog({candidato, shortVersion}: {cand
 
         try{
             const response = await createEvent(eventDetails, token);
-            alert('Entrevista agendada exitosamente')
+            toast({
+                title: "Entrevista Agendada",
+                description: "Entrevista agendada exitosamente",
+            });
             console.log("Event created: ", response)
             setIsDialogOpen(false)
         }catch (error){
             console.error("Failed to create event", error)
-            alert('Error al agendar entrevista')
+            toast({
+                title: "Error",
+                description: "Error al agendar entrevista",
+            });
         }
 
     }
