@@ -11,6 +11,7 @@ export type Candidato = {
     correo: string;
     aspiracion_salarial: string;
     timestamp: string;
+    comentarios: string;
 }
 
 export type Contacto = {
