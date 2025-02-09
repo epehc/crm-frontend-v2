@@ -3,7 +3,7 @@
 import {Table, TableBody, TableCaption, TableHead, TableHeader, TableRow} from "@/components/ui/table"
 import {Cliente, Factura, NuevoPago, Pago} from "@/lib/definitions";
 import FacturaRow from "../facturas/factura-row";
-import usePageData from "@/app/hooks/usePageData";
+import usePageData from "@/hooks/usePageData";
 import { useEffect, useState } from "react";
 import { updateFacturasAndClientsSaldo } from "@/lib/utils";
 import { getFacturasByClienteId, getPagosByFacturaId } from "@/services/invoices-service";

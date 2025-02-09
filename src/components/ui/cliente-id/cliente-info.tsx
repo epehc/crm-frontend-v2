@@ -2,10 +2,11 @@ import {Cliente, PersonaContacto} from "@/lib/definitions";
 import {Separator} from "@/components/ui/separator";
 import AgendarEntrevistaDialog from "@/components/ui/candidato-id/agendar-entrevista-dialog";
 import AgendarEventoDialog from "./agendar-evento-dialog";
+import EditarClienteInfoDialog from "./edit/editar-cliente-info-dialog";
 
 
 
-export default function ClienteInfo({ cliente, personasContacto }: { cliente: Cliente | null, personasContacto: PersonaContacto[] }) {
+export default function ClienteInfo({ cliente, personasContacto, onEdit }: { cliente: Cliente | null, personasContacto: PersonaContacto[], onEdit: () => void }) {
 
     if(!cliente){
         return <div>Loading...</div>
@@ -28,6 +29,7 @@ export default function ClienteInfo({ cliente, personasContacto }: { cliente: Cl
                     </div>
                     <div className='grid grid-cols-1 gap-4 w-[240px]'>
                         <AgendarEventoDialog cliente={cliente} personasContacto={personasContacto} shortVersion={false}/>
+                        <EditarClienteInfoDialog cliente={cliente} onEdit={onEdit}/>
                     </div>
                 </div>
             </div>

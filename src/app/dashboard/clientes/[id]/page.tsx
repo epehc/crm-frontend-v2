@@ -83,7 +83,7 @@ export default function ClientePage() {
 
     return (
         <div>
-            <ClienteInfo cliente={cliente} personasContacto={personasContacto}/>
+            <ClienteInfo cliente={cliente} personasContacto={personasContacto} onEdit={onChange}/>
             <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
                 <div className="w-full flex-none md:w-64">
                     <ClienteSidenav setActiveSection={setActiveSelection}/>

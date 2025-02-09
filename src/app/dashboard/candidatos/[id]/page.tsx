@@ -35,6 +35,8 @@ export default function CandidatoPage() {
     const {data: session} = useSession();
     const token = session?.accessToken as string;
 
+    const [refresh, setRefresh] = useState<number>(0);
+
     const [candidato, setCandidato] = useState<Candidato | null>(null);
     const [informacionPersonal, setInformacionPersonal] = useState<InformacionPersonal | null>(null);
     const [contactos, setContactos] = useState<Contacto[]>([]);
@@ -102,26 +104,58 @@ export default function CandidatoPage() {
         };
 
         fetchData()
-    }, [candidato, token]);
+    }, [candidato, token, refresh]);
+
+    const handleRefresh = () => {
+        setRefresh(prev => prev + 1);
+    }
 
     return (
         <div>
-            <CandidatoInfo candidato={candidato}/>
+            <CandidatoInfo candidato={candidato} onEdit={handleRefresh}/>
             <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
                 <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
-                    <InformacionPersonalComponent informacionPersonal={informacionPersonal} />
+                    {informacionPersonal ? (
+                        <InformacionPersonalComponent informacionPersonal={informacionPersonal} />
+                            ) : (
+                        <p>Loading información personal...</p>
+                    )}
                     <Separator className='mt-5 mb-5'/>
-                    <ContactosComponent contactos={contactos}/>
+                    {contactos ? (
+                        <ContactosComponent contactos={contactos} />
+                    ) : (
+                        <p>Loading contactos...</p>
+                    )}
                     <Separator className='mt-5 mb-5'/>
-                    <EstudiosComponent estudios={estudios}/>
+                    {estudios ? (
+                        <EstudiosComponent estudios={estudios} />
+                    ) : (
+                        <p>Loading estudios...</p>
+                    )}
                     <Separator className='mt-5 mb-5'/>
-                    <ExperienciaLaboralComponent experienciaLaboral={experienciaLaboral}/>
+                    {experienciaLaboral ? (
+                        <ExperienciaLaboralComponent experienciaLaboral={experienciaLaboral} />
+                    ) : (
+                        <p>Loading experiencia laboral...</p>
+                    )}
                     <Separator className='mt-5 mb-5'/>
-                    <MobilidadComponent mobilidad={mobilidad} />
+                    {mobilidad ? (
+                        <MobilidadComponent mobilidad={mobilidad} />
+                    ) : (
+                        <p>Loading mobilidad...</p>
+                    )}
                     <Separator className='mt-5 mb-5'/>
-                    <ResidenciaComponent residencia={residencia} />
+                    {residencia ? (
+                        <ResidenciaComponent residencia={residencia} />
+                    ) : (
+                        <p>Loading residencia...</p>
+                    )}
                     <Separator className='mt-5 mb-5'/>
-                    <ViciosComponent vicios={vicios}/>
+                    {vicios ? (
+                        <ViciosComponent vicios={vicios} />
+                    ) : (
+                        <p>Loading vicios...</p>
+                    )}
                 </div>
             </div>
         </div>

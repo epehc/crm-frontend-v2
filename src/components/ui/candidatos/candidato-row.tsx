@@ -10,12 +10,11 @@ export default function CandidatoRow({candidato}: {candidato: Candidato}) {
     const handleRowClick = () => {
         router.push(`/dashboard/candidatos/${candidato.candidato_id}`);
     }
-    const cleanedTimestamp = candidato.timestamp.replace(" EEST", "").replace(" EET", "");
-    const formattedTimestamp = formatDate(new Date(cleanedTimestamp));
+
 
     return(
         <TableRow>
-            <TableCell>{formattedTimestamp}</TableCell>
+            <TableCell>{candidato.timestamp}</TableCell>
             <TableCell onClick={handleRowClick} style={{cursor: "pointer"}}><b>{candidato.nombre}</b></TableCell>
             <TableCell><b>{candidato.puesto_aplicado}</b></TableCell>
             <TableCell>{candidato.como_se_entero}</TableCell>
