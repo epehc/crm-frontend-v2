@@ -1,5 +1,5 @@
 import api from './api';
-import {Cliente, NuevaPersonaContacto, NuevoCliente} from "@/lib/definitions";
+import {Cliente, NuevaPersonaContacto, NuevoCliente, PersonaContacto} from "@/lib/definitions";
 
 export const getAllClientes = async (token: string) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_CLIENTS_API_URL}/clientes/all`,{
@@ -126,6 +126,21 @@ export const createPersonaContacto = async (personaContacto: NuevaPersonaContact
     }
     return response.json();
 };
+
+export const updatePersonaContacto = async (personaContacto: PersonaContacto, token: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CLIENTS_API_URL}/personas-contacto/${personaContacto.persona_contacto_id}`, {
+        method: "PUT",
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(personaContacto),
+    })
+    if (!response.ok) {
+        throw new Error(`Failed to update persona contacto: ${response.statusText}`);
+    }
+    return response.json();
+}
 
 export const deletePersonaContacto = async (persona_contacto_id: string, token: string) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_CLIENTS_API_URL}/personas-contacto/${persona_contacto_id}`, {

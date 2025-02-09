@@ -1,3 +1,4 @@
+import { Candidato, Contacto, Estudio, ExperienciaLaboral, InformacionPersonal, Mobilidad, Residencia, Vicios } from '@/lib/definitions';
 import api from './api';
 
 export const getCandidatos = async (page: number, pageSize: number, token: string, query?: string) => {
@@ -33,19 +34,24 @@ export const getCandidato = async (candidato_id:string, token: string) => {
     return response.json();
 }
 
-export const getCandidatoByEmail = async (email:string) => {
-    const response = await api.get(`/candidatos/email/${email}`);
-    return response.data;
-}
-
 export const createCandidato = async (data:any) => {
     const response = await api.post('/candidatos', data);
     return response.data;
 }
 
-export const updateCandidato = async (id:string, data:any) => {
-    const response = await api.put(`/candidatos/${id}`, data);
-    return response.data;
+export const updateCandidato = async (updatedCandidato: Candidato, token: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/candidatos/${updatedCandidato.candidato_id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedCandidato),
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to update candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const deleteCandidato = async (id:string) => {
@@ -79,9 +85,19 @@ export const createContacto = async (data:any) => {
     return response.data;
 }
 
-export const updateContacto = async (id:string, data:any) => {
-    const response = await api.put(`/contactos/${id}`, data);
-    return response.data;
+export const updateContacto = async (contacto:Contacto, token:string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/contactos/${contacto.id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(contacto),
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to update candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const deleteContacto = async (id:string) => {
@@ -115,9 +131,19 @@ export const createEstudio = async (data:any) => {
     return response.data;
 }
 
-export const updateEstudio = async (id:string, data:any) => {
-    const response = await api.put(`/estudios/${id}`, data);
-    return response.data;
+export const updateEstudio = async (estudio: Estudio, token:string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/estudios/${estudio.id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(estudio),
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to update candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const deleteEstudio = async (id:string) => {
@@ -155,9 +181,19 @@ export const createExperienciaLaboral = async (data:any) => {
     return response.data;
 }
 
-export const updateExperienciaLaboral = async (id:string, data:any) => {
-    const response = await api.put(`/experiencias-laborales/${id}`, data);
-    return response.data;
+export const updateExperienciaLaboral = async (experienciaLaboral: ExperienciaLaboral, token:string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/experiencias-laborales/${experienciaLaboral.id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(experienciaLaboral),
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to update candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const deleteExperienciaLaboral = async (id:string) => {
@@ -190,9 +226,19 @@ export const createInformacionPersonal = async (data:any) => {
     return response.data;
 }
 
-export const updateInformacionPersonal = async (id:string, data:any) => {
-    const response = await api.put(`/informaciones-personales/${id}`, data);
-    return response.data;
+export const updateInformacionPersonal = async (informacionPersonal:InformacionPersonal, token: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/informaciones-personales/${informacionPersonal.candidato_id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(informacionPersonal),
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to update candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const deleteInformacionPersonal = async (id:string) => {
@@ -225,9 +271,19 @@ export const createMobilidad = async (data:any) => {
     return response.data;
 }
 
-export const updateMobilidad = async (id:string, data:any) => {
-    const response = await api.put(`/mobilidades/${id}`, data);
-    return response.data;
+export const updateMobilidad = async (mobilidades: Mobilidad, token:string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/mobilidades/${mobilidades.candidato_id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(mobilidades),
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to update candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const deleteMobilidad = async (id:string) => {
@@ -260,9 +316,19 @@ export const createResidencia = async (data:any) => {
     return response.data;
 }
 
-export const updateResidencia = async (id:string, data:any) => {
-    const response = await api.put(`/residencias/${id}`, data);
-    return response.data;
+export const updateResidencia = async (residencia: Residencia, token:string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/residencias/${residencia.candidato_id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(residencia),
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to update candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const deleteResidencia = async (id:string) => {
@@ -295,9 +361,19 @@ export const createVicios = async (data:any) => {
     return response.data;
 }
 
-export const updateVicios = async (id:string, data:any) => {
-    const response = await api.put(`/vicios/${id}`, data);
-    return response.data;
+export const updateVicios = async (vicios: Vicios, token:string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/vicios/${vicios.candidato_id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(vicios),
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to update candidate: ${response.statusText}`);
+    }
+    return response.json();
 }
 
 export const deleteVicios = async (id:string) => {
