@@ -1,17 +1,14 @@
 import {Button} from "@/components/ui/button";
 import {DocumentPlusIcon, PencilIcon} from "@heroicons/react/24/outline";
-import {Candidato} from "@/lib/definitions";
+import {Candidato, CandidatoData} from "@/lib/definitions";
 import {Separator} from "@/components/ui/separator";
 import AgendarEntrevistaDialog from "@/components/ui/candidato-id/agendar-entrevista-dialog";
 import EditarCandidatoInfoDialog from "./edit/editar-candidato-info-dialog";
+import GenerarInformeDialog from "./informe/generar-informe-dialog";
 
 
 
-export default function CandidatoInfo({ candidato, onEdit }: { candidato: Candidato | null, onEdit: () => void }) {
-
-    if(!candidato){
-        return <div>Loading...</div>
-    }
+export default function CandidatoInfo({ candidato, onEdit }: { candidato: Candidato, onEdit: () => void }) {
 
     return (
         <div className="flex flex-col space-y-4">
@@ -32,10 +29,7 @@ export default function CandidatoInfo({ candidato, onEdit }: { candidato: Candid
                     </div>
                     <div className='grid grid-cols-1 gap-4 w-[240px]'>
                         <AgendarEntrevistaDialog candidato={candidato} shortVersion={false}/>
-                        <Button>
-                            <DocumentPlusIcon/>
-                            Generar informe
-                        </Button>
+                        <GenerarInformeDialog/>
                         <EditarCandidatoInfoDialog candidato={candidato} onEdit={onEdit}/>
                     </div>
                 </div>

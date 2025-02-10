@@ -3,6 +3,7 @@
 import {useEffect, useState} from 'react';
 import {
     Candidato,
+    CandidatoData,
     Contacto,
     Estudio,
     ExperienciaLaboral,
@@ -25,15 +26,15 @@ import {
     getInformacionPersonalByCandidatoId, getMobilidadByCandidatoId, getResidenciaByCandidatoId, getViciosByCandidatoId
 } from "@/services/candidates-service";
 import {useParams} from "next/navigation";
-import {useSession} from "next-auth/react";
 import CandidatoInfo from "@/components/ui/candidato-id/candidato-info";
+import usePageData from '@/hooks/usePageData';
+import { useCandidatoDataContext } from '@/contexts/useCandidatoDataContext';
 
 
 export default function CandidatoPage() {
     const params = useParams();
     const  id  = params?.id as string;
-    const {data: session} = useSession();
-    const token = session?.accessToken as string;
+    const {token} = usePageData('/dashboard/candidatos/[id]');
 
     const [refresh, setRefresh] = useState<number>(0);
 
@@ -45,6 +46,8 @@ export default function CandidatoPage() {
     const [mobilidad, setMobilidad] = useState<Mobilidad | null>(null);;
     const [residencia, setResidencia] = useState<Residencia | null>(null);
     const [vicios, setVicios] = useState<Vicios | null>(null);
+
+    const {setData} = useCandidatoDataContext()
 
     useEffect(() => {
         if(!id || !token){
@@ -98,6 +101,19 @@ export default function CandidatoPage() {
                 setMobilidad(fetchedMobilidad);
                 setResidencia(fetchedResidencia);
                 setVicios(fetchedVicios);
+
+                const candidatoData: CandidatoData = {
+                    candidato,
+                    informacionPersonal: fetchedInformacionPersonal,
+                    contactos: fetchedContactos,
+                    estudios: fetchedEstudios,
+                    experienciaLaboral: fetchedExperienciasLaborales,
+                    mobilidad: fetchedMobilidad,
+                    residencia: fetchedResidencia,
+                    vicios: fetchedVicios
+                }
+
+                setData(candidatoData)
             } catch (error) {
                 console.error("Failed to fetch data", error);
             }
@@ -112,7 +128,12 @@ export default function CandidatoPage() {
 
     return (
         <div>
-            <CandidatoInfo candidato={candidato} onEdit={handleRefresh}/>
+            {candidato ? (        
+                <CandidatoInfo candidato={candidato} onEdit={handleRefresh}/>
+                ) : (
+                    <p>Loading candidato...</p>
+                )
+            }
             <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
                 <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
                     {informacionPersonal ? (
