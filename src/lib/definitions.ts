@@ -1,3 +1,20 @@
+//CandidatoData
+
+export type CandidatoData = {
+    candidato: Candidato | null;
+    informacionPersonal: InformacionPersonal | null;
+    contactos: Contacto[];
+    estudios: Estudio[];
+    experienciaLaboral: ExperienciaLaboral[];
+    mobilidad: Mobilidad | null;
+    residencia: Residencia | null;
+    vicios: Vicios | null;
+}
+
+export type InformeTexts = {
+    desenvolvimiento: string;
+    referencias: string;
+}
 
 //Candidatos
 export type Candidato = {
