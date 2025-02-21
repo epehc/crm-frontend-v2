@@ -1,10 +1,6 @@
 import React from 'react'
 import AddClientDialog from '../../../src/components/ui/clientes/add-client-dialog'
 
-// Here you can stub the session if needed, for example using your custom mountWithSession:
-// cy.mountWithSession(<AddClientDialog ... />)
-// For this sample, assume mounting works as expected
-
 describe('<AddClientDialog />', () => {
   it('opens dialog on button click', () => {
     cy.mountWithSession(<AddClientDialog addCliente={() => {}} />)
