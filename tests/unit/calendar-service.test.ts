@@ -1,9 +1,7 @@
 import { createEvent } from '../../src/services/calendar-service';
 
+
 describe('Calendar Service', () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
 
   describe('createEvent', () => {
     it('should create a new event successfully', async () => {

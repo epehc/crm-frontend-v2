@@ -5,8 +5,8 @@ import {
     ExperienciaLaboral, Factura,
     InformacionPersonal,
     Mobilidad, Pago,
-    Residencia, Vicios
-} from "@/lib/definitions";
+    Residencia, Vicios, EstadoFactura
+} from "./definitions";
 
 export const dummyCandidatos: Candidato[] = [
     {
@@ -19,7 +19,8 @@ export const dummyCandidatos: Candidato[] = [
         telefono: "0987654321",
         correo: "john.doe@example.com",
         aspiracion_salarial: "50000",
-        timestamp: "2023-01-01T12:00:00Z"
+        timestamp: "2023-01-01T12:00:00Z",
+        comentarios: "Looking for remote work"
     },
     {
         candidato_id: "2",
@@ -31,7 +32,8 @@ export const dummyCandidatos: Candidato[] = [
         telefono: "9876543210",
         correo: "jane.smith@example.com",
         aspiracion_salarial: "60000",
-        timestamp: "2023-01-02T12:00:00Z"
+        timestamp: "2023-01-02T12:00:00Z",
+        comentarios: "Open to relocation"
     }
 ];
 
@@ -239,93 +241,93 @@ export const dummyClientes: Cliente[] = [
 
 export const dummyFacturas: Factura[] = [
     {
-        factura_id: '1',
-        cliente_id: '1001',
+        factura_id: 1,
+        client_id: '1001',
         cliente_nombre: 'Cliente A',
-        estado: 'creada',
+        estado: EstadoFactura.CREADA,
         fecha: '2023-10-01',
         fecha_vencimiento: '2023-10-31',
         iva: 120,
-        total_despues_iva: 880,
+        total_sin_iva: 880,
         total: 1000,
         abonado: 200,
         saldo_pendiente: 800,
         nit: '123456789',
-        pagos: ['Pago 1'],
+        descripcion: 'Factura de prueba',
     },
     {
-        factura_id: '2',
-        cliente_id: '1002',
+        factura_id: 2,
+        client_id: '1002',
         cliente_nombre: 'Cliente B',
-        estado: 'parcial',
+        estado: EstadoFactura.PARCIAL,
         fecha: '2023-09-15',
         fecha_vencimiento: '2023-10-30',
         iva: 180,
-        total_despues_iva: 1320,
+        total_sin_iva: 1320,
         total: 1500,
         abonado: 1500,
         saldo_pendiente: 0,
         nit: '987654321',
-        pagos: ['Pago 1', 'Pago 2'],
+        descripcion: 'Factura de prueba 2',
     },
     {
-        factura_id: '3',
-        cliente_id: '1003',
+        factura_id: 3,
+        client_id: '1003',
         cliente_nombre: 'Cliente C',
-        estado: 'pagada',
+        estado: EstadoFactura.PAGADA,
         fecha: '2023-08-20',
         fecha_vencimiento: '2023-09-19',
         iva: 240,
-        total_despues_iva: 1760,
+        total_sin_iva: 1760,
         total: 2000,
         abonado: 500,
         saldo_pendiente: 1500,
         nit: '112233445',
-        pagos: ['Pago 1'],
+        descripcion: 'Factura de prueba 3',
     },
     {
-        factura_id: '4',
-        cliente_id: '1004',
+        factura_id: 4,
+        client_id: '1004',
         cliente_nombre: 'Cliente D',
-        estado: 'vencida',
+        estado: EstadoFactura.VENCIDA,
         fecha: '2023-07-10',
         fecha_vencimiento: '2023-10-08',
         iva: 300,
-        total_despues_iva: 2200,
+        total_sin_iva: 2200,
         total: 2500,
         abonado: 0,
         saldo_pendiente: 2500,
         nit: '556677889',
-        pagos: [],
+        descripcion: 'Factura de prueba 4',
     },
     {
-        factura_id: '5',
-        cliente_id: '1005',
+        factura_id: 5,
+        client_id: '1005',
         cliente_nombre: 'Cliente E',
-        estado: 'anulada',
+        estado: EstadoFactura.ANULADA,
         fecha: '2023-06-05',
         fecha_vencimiento: '2023-09-03',
         iva: 360,
-        total_despues_iva: 2640,
+        total_sin_iva: 2640,
         total: 3000,
         abonado: 1000,
         saldo_pendiente: 2000,
         nit: '998877665',
-        pagos: ['Pago 1'],
+        descripcion: 'Factura de prueba 5',
     },
 ];
 
 export const dummyPagos: Pago[] = [
     {
         pago_id: "1",
-        factura_id: "1",
+        factura_id: 1,
         fecha: "2023-01-15",
         monto: 1300,
         boleta_pago: "BP123"
     },
     {
         pago_id: "2",
-        factura_id: "2",
+        factura_id: 2,
         fecha: "2023-01-20",
         monto: 2500,
         boleta_pago: "BP124"

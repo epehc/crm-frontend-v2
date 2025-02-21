@@ -20,7 +20,7 @@ import {createCliente} from "@/services/clients-service";
 import { useToast } from "@/hooks/use-toast";
 
 
-export default function AddClientDialog({addCliente}: {addCliente: (nuevoCliente: NuevoCliente) => void}) {
+export default function AddClientDialog({addCliente}: {addCliente: () => void}) {
     const {data: session} = useSession();
     const token = session?.accessToken as string;
     const organizer = session?.user.email as string;
@@ -96,7 +96,7 @@ export default function AddClientDialog({addCliente}: {addCliente: (nuevoCliente
                 description: "Cliente creado exitosamente",
             });
             console.log("Cliente creado: ", response)
-            addCliente(response)
+            addCliente()
             resetForm()
             setIsDialogOpen(false)
         }catch(error){

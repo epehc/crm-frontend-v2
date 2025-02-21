@@ -1,4 +1,4 @@
-import { Factura, NuevaFactura, NuevoPago } from '@/lib/definitions';
+import { Factura, NuevaFactura, NuevoPago, Pago } from '@/lib/definitions';
 import api from './api';
 
 export const getAllFacturas = async (token: string) => {
@@ -160,7 +160,7 @@ export const createPago = async (nuevoPago: NuevoPago, token: string) => {
     return response.json();
 }
 
-export const updatePago = async (pago_id: string, pago: any) => {
+export const updatePago = async (pago_id: string, pago: Pago) => {
     const response = await api.put(`/pagos/${pago_id}`, pago);
     return response.data;
 }

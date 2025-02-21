@@ -1,4 +1,4 @@
-import {CheckCircleIcon, CheckIcon, ClockIcon, ExclamationTriangleIcon, XCircleIcon} from '@heroicons/react/24/outline';
+import {CheckCircleIcon, ClockIcon, ExclamationTriangleIcon, XCircleIcon} from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 
 export default function InvoiceStatus({status}: {status: string}) {

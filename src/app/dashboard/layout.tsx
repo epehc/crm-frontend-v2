@@ -1,12 +1,12 @@
 'use client'
 
 import SideNav from '@/components/ui/dashboard/sidenav';
-//import {useSession} from "next-auth/react";
+import {useSession} from "next-auth/react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-    /*const { data: session } = useSession();
+    const { data: session } = useSession();
 
-    const roles = session?.user?.roles || [];*/
+    const roles = session?.user?.roles || [];
 
     return (
         <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">

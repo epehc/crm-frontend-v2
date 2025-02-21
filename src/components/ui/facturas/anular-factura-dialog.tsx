@@ -3,7 +3,6 @@
 import {
     Dialog,
     DialogContent,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -11,7 +10,7 @@ import {
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
 import {XCircleIcon} from "@heroicons/react/24/outline";
-import { anularFactura, updateFactura } from "@/services/invoices-service";
+import {updateFactura } from "@/services/invoices-service";
 import usePageData from "@/hooks/usePageData";
 import { useState } from "react";
 import { getClienteByClienteId, updateCliente } from "@/services/clients-service";

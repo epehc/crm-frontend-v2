@@ -1,6 +1,4 @@
 import {Contacto} from "@/lib/definitions";
-import {Label} from "@/components/ui/label";
-import CustomInput from "@/components/ui/global/custom-input";
 import ContactoComponent from "./contacto";
 
 export default function ContactosComponent({ contactos }: { contactos: Contacto[] }) {

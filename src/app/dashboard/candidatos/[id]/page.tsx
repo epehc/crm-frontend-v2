@@ -120,7 +120,7 @@ export default function CandidatoPage() {
         };
 
         fetchData()
-    }, [candidato, token, refresh]);
+    }, [candidato, token, refresh, setData]);
 
     const handleRefresh = () => {
         setRefresh(prev => prev + 1);

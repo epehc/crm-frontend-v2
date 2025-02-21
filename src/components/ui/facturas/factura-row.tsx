@@ -1,7 +1,7 @@
 'use client'
 
 import {TableCell, TableRow} from "@/components/ui/table";
-import {Factura, NuevoPago, Pago} from "@/lib/definitions";
+import {Factura, Pago} from "@/lib/definitions";
 import {useState } from "react";
 import ExpandButton from "../global/expand-button";
 import InvoiceStatus from "./status";

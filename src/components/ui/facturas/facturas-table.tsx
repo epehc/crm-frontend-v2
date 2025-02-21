@@ -1,7 +1,7 @@
 'use client'
 
 import {Table, TableBody, TableCaption, TableHead, TableHeader, TableRow} from "@/components/ui/table"
-import {Factura, NuevoPago, Pago} from "@/lib/definitions";
+import {Factura, Pago} from "@/lib/definitions";
 import FacturaRow from "./factura-row";
 
 export default function FacturasTable({facturas, pagos, onChange} : {facturas: Factura[], pagos: Pago[], onChange: () => void}) {

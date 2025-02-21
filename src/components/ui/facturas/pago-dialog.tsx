@@ -56,7 +56,7 @@ export default function PagoDialog({factura, client_id, addPago}: {factura:Factu
         }
 
         fetchCliente()
-    }, [token])
+    }, [client_id, token])
 
     const handleFechaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();

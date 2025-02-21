@@ -1,6 +1,4 @@
-import {Button} from "@/components/ui/button";
-import {DocumentPlusIcon, PencilIcon} from "@heroicons/react/24/outline";
-import {Candidato, CandidatoData} from "@/lib/definitions";
+import {Candidato} from "@/lib/definitions";
 import {Separator} from "@/components/ui/separator";
 import AgendarEntrevistaDialog from "@/components/ui/candidato-id/agendar-entrevista-dialog";
 import EditarCandidatoInfoDialog from "./edit/editar-candidato-info-dialog";

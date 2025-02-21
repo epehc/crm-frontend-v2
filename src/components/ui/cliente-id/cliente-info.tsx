@@ -1,6 +1,5 @@
 import {Cliente, PersonaContacto} from "@/lib/definitions";
 import {Separator} from "@/components/ui/separator";
-import AgendarEntrevistaDialog from "@/components/ui/candidato-id/agendar-entrevista-dialog";
 import AgendarEventoDialog from "./agendar-evento-dialog";
 import EditarClienteInfoDialog from "./edit/editar-cliente-info-dialog";
 

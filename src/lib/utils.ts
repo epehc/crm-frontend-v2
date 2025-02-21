@@ -84,7 +84,7 @@ export const updateFacturasVencidas = async (token: string) => {
                 // Update factura estado
                 const updatedFactura: Factura = {
                     ...factura,
-                    estado: 'vencida'
+                    estado: EstadoFactura.VENCIDA
                 };
                 await updateFactura(updatedFactura, token);
                 console.log(`Factura ${factura.factura_id} marked as vencida`);

@@ -1,6 +1,4 @@
 import {Estudio} from "@/lib/definitions";
-import {Label} from "@/components/ui/label";
-import CustomInput from "@/components/ui/global/custom-input";
 import EstudioComponent from "./estudio";
 
 export default function EstudiosComponent({ estudios }: { estudios: Estudio[] }) {

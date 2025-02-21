@@ -72,7 +72,7 @@ export default function ClientePage() {
     const renderContent = () => {
         switch(activeSelection){
             case 'facturas':
-                return <ClienteFacturasTable cliente={cliente} onChange={onChange} refresh={refresh}/>
+                return cliente ? <ClienteFacturasTable cliente={cliente} onChange={onChange} refresh={refresh}/> : <div>Loading...</div>
             case 'personas-de-contacto':
                 return <PersonasContactoComponent client_id={client_id} personasContacto={personasContacto} onChange={onChange}/>
             default:

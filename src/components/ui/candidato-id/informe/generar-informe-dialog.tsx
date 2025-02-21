@@ -28,7 +28,7 @@ export default function GenerarInformeDialog(){
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isClienteSelectOpen, setIsClienteSelectOpen] = useState(false)
     
-    const { data, informeTexts, setInformeTexts, empresa, setEmpresa } = useCandidatoDataContext();
+    const { data, setInformeTexts, setEmpresa } = useCandidatoDataContext();
     
     const [allClientes, setAllClientes] = useState<Cliente[]>([])
     const [cliente, setCliente] = useState<Cliente | null>(null)

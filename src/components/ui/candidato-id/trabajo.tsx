@@ -6,7 +6,7 @@ import CustomInput from "@/components/ui/global/custom-input";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import usePageData from "@/hooks/usePageData";
-import { updateContacto, updateExperienciaLaboral } from "@/services/candidates-service";
+import { updateExperienciaLaboral } from "@/services/candidates-service";
 import { Button } from '../button';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import {Textarea} from "@/components/ui/textarea";

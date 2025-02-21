@@ -14,7 +14,7 @@ export default function Informe() {
     const fecha = new Date().toLocaleDateString('es-GT', { year: 'numeric', month: 'long', day: 'numeric' });
 
     // Hyphenation callback to prevent words from being split
-    Font.registerHyphenationCallback(word => [word]);
+    Font.registerHyphenationCallback((word: string): string[] => [word]);
 
     const InformePDF = () => (
         <Document>
@@ -50,7 +50,7 @@ export default function Informe() {
                             <TH style={styles.thCell}><Text>Último grado cursado:</Text></TH>
                         </TR>
                         {data?.estudios.map(estudio => (
-                            <TR>
+                            <TR key={estudio.id}>
                                 <TD style={styles.td}>{estudio.institucion}</TD>
                                 <TD style={styles.td}>{estudio.titulo}</TD>
                                 <TD style={styles.td}>{estudio.grado}</TD>
@@ -66,7 +66,7 @@ export default function Informe() {
                         <Text style={styles.textCentered}>INFORMACIÓN LABORAL</Text>
                     </View>
                     {data?.experienciaLaboral.map(experiencia => (
-                        <View>
+                        <View key={experiencia.id}>
                             <Text style={[styles.trabajoTableHeader,styles.textCentered]}>{experiencia.puesto}</Text>
                             <Table style={styles.trabajoTable}>
                                 <TR>

@@ -34,11 +34,6 @@ export const getCandidato = async (candidato_id:string, token: string) => {
     return response.json();
 }
 
-export const createCandidato = async (data:any) => {
-    const response = await api.post('/candidatos', data);
-    return response.data;
-}
-
 export const updateCandidato = async (updatedCandidato: Candidato, token: string) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/candidatos/${updatedCandidato.candidato_id}`, {
         method: 'PUT',
@@ -80,11 +75,6 @@ export const getContactosByCandidatoId = async (candidato_id:string, token: stri
     return response.json();
 }
 
-export const createContacto = async (data:any) => {
-    const response = await api.post('/contactos', data);
-    return response.data;
-}
-
 export const updateContacto = async (contacto:Contacto, token:string) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/contactos/${contacto.id}`, {
         method: 'PUT',
@@ -124,11 +114,6 @@ export const getEstudiosByCandidatoId = async (candidato_id:string, token: strin
         throw new Error(`Failed to fetch candidate: ${response.statusText}`);
     }
     return response.json();
-}
-
-export const createEstudio = async (data:any) => {
-    const response = await api.post('/estudios', data);
-    return response.data;
 }
 
 export const updateEstudio = async (estudio: Estudio, token:string) => {
@@ -176,11 +161,6 @@ export const getExperienciasLaboralesByCandidatoId = async (candidato_id:string,
     return response.json();
 }
 
-export const createExperienciaLaboral = async (data:any) => {
-    const response = await api.post('/experiencias-laborales', data);
-    return response.data;
-}
-
 export const updateExperienciaLaboral = async (experienciaLaboral: ExperienciaLaboral, token:string) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/experiencias-laborales/${experienciaLaboral.id}`, {
         method: 'PUT',
@@ -219,11 +199,6 @@ export const getInformacionPersonalByCandidatoId = async (candidato_id: string, 
         throw new Error(`Failed to fetch candidate: ${response.statusText}`);
     }
     return response.json();
-}
-
-export const createInformacionPersonal = async (data:any) => {
-    const response = await api.post('/informaciones-personales', data);
-    return response.data;
 }
 
 export const updateInformacionPersonal = async (informacionPersonal:InformacionPersonal, token: string) => {
@@ -266,11 +241,6 @@ export const getMobilidadByCandidatoId = async (candidato_id:string, token: stri
     return response.json();
 }
 
-export const createMobilidad = async (data:any) => {
-    const response = await api.post('/mobilidades', data);
-    return response.data;
-}
-
 export const updateMobilidad = async (mobilidades: Mobilidad, token:string) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/mobilidades/${mobilidades.candidato_id}`, {
         method: 'PUT',
@@ -311,10 +281,6 @@ export const getResidenciaByCandidatoId = async (candidato_id:string, token: str
     return response.json();
 }
 
-export const createResidencia = async (data:any) => {
-    const response = await api.post('/residencias', data);
-    return response.data;
-}
 
 export const updateResidencia = async (residencia: Residencia, token:string) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_CANDIDATES_API_URL}/residencias/${residencia.candidato_id}`, {
@@ -354,11 +320,6 @@ export const getViciosByCandidatoId = async (candidato_id:string, token: string)
         throw new Error(`Failed to fetch candidate: ${response.statusText}`);
     }
     return response.json();
-}
-
-export const createVicios = async (data:any) => {
-    const response = await api.post('/vicios', data);
-    return response.data;
 }
 
 export const updateVicios = async (vicios: Vicios, token:string) => {

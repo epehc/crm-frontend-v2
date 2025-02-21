@@ -7,20 +7,44 @@ permissions:
   packages: read
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
+  test:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
+    env:
+      NEXT_PUBLIC_AUTH_API_URL: http://localhost:4001
+      NEXT_PUBLIC_CANDIDATES_API_URL: http://localhost:4000
+      NEXT_PUBLIC_CLIENTS_API_URL: http://localhost:4003
+      NEXT_PUBLIC_INVOICES_API_URL: http://localhost:4004
+      NEXT_PUBLIC_CALENDAR_API_URL: http://localhost:4002
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v3
-              with:
-                  node-version: "18"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-            - name: Install dependencies
-              run: npm install
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
 
-            - name: Run tests (Unit, Cypress E2E and Component)
-              run: npm run test:unit
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the application
+        run: npm run build
+
+      - name: Start the application
+        run: npm start &
+        env:
+          PORT: 3000
+
+      - name: Wait for the application to be ready
+        run: npx wait-on http://localhost:3000
+
+      - name: Run unit tests
+        run: npm run test:unit
+
+      - name: Run Cypress E2E tests
+        run: npm run test:cypress:e2e
+
+      - name: Run Cypress component tests
+        run: npm run test:cypress:component

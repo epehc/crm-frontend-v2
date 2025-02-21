@@ -43,7 +43,7 @@ export default NextAuth({
             }
         },
 
-        async jwt({token, user, account}) {
+        async jwt({token, user}) {
             if (user) {
                 const enrichedToken = {
                     ...token,

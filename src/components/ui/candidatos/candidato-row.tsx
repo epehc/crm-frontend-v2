@@ -2,7 +2,6 @@ import {TableCell, TableRow} from "@/components/ui/table";
 import {Candidato} from "@/lib/definitions";
 import {useRouter} from "next/navigation";
 import AgendarEntrevistaDialog from "../candidato-id/agendar-entrevista-dialog";
-import { formatDate } from "@/lib/utils";
 
 export default function CandidatoRow({candidato}: {candidato: Candidato}) {
     const router = useRouter();
