@@ -1,12 +1,16 @@
 {
-    "name": "crm-front-v2",
+    "name": "crm-frontend-v2",
     "version": "0.1.0",
     "private": true,
     "scripts": {
         "dev": "next dev --turbopack",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "test:unit": "npx jest",
+        "test:cypress:e2e": "cypress run --config-file cypress.config.ts",
+        "test:cypress:component": "cypress run --component --config-file cypress.config.ts",
+        "test": "npm run test:unit && npm run test:cypress:e2e && npm run test:cypress:component"
     },
     "dependencies": {
         "@ag-media/react-pdf-table": "^2.0.1",
